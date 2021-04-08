@@ -1,0 +1,10 @@
+<span class="titleSubOpe">{{subOperation.ORDRE}} : {{subOperation.DESCRIPTION_OPERATION}}</span>
+<!-- *ngIf="subOperation.STEPS[0].TRACA" -->
+<div class="process-status status-tri">
+    <span>Prod</span>
+    <app-status-trio class="status" [status]="subOperation.PROD.STATUS"></app-status-trio>
+</div>
+<div class="traca-status status-tri" *ngIf="isTraca">
+    <span>Qual</span>
+    <app-status-trio class="status" [status]="tracaStatus"></app-status-trio>
+</div>

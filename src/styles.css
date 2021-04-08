@@ -1,1 +1,36 @@
+/* @import '~bootstrap/dist/css/bootstrap.min.css'; */
 /* You can add global styles to this file, and also import other style files */
+html {
+    height: 100%;
+}
+body {
+    background-image: var(--perso-bg-img);
+    background-repeat: no-repeat;
+    background-size: cover;
+    color: white;
+    font-family: var(--perso-font-daher);
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    font-variant-numeric: lining-nums;
+}
+app-root {
+    height: 100%;
+}
+:root {
+    user-select: none;
+    --perso-bg-img: url(assets/img/fond.jpg);
+    --perso-color-bleuDaher: rgb(0, 50, 95);
+    --perso-color-bleuDaher2: rgb(0, 13, 36);
+    --perso-color-bleuDaher3: 0, 13, 36;
+    --perso-color-rougeDaher: rgb(230, 0, 50);
+    --perso-color-whiteFont: rgb(255, 255, 255);
+    --perso-color-green: rgb(0, 202, 61);
+    --perso-color-green2: rgb(73, 230, 120);
+    --perso-font-daher: "Raleway";
+    font-size: 15px;
+}
+@font-face {
+    font-family: "Raleway";
+    src: url("assets/font/Raleway-Regular.ttf");
+}

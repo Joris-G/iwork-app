@@ -1,0 +1,23 @@
+<!-- <div [formGroup]="tracaGroup">
+    <div formArrayName="tracasList"> -->
+<!-- <img src="assets/img/shield.svg" alt="Image bouclier qualité"> -->
+<div class="tracaList">
+    <div class="traca" *ngFor="let traca of tracasArray.controls;index as i">
+        <div>{{traca.value.text}}</div>
+        <div class="control-tool" *ngIf="traca.value.ECME">
+            <div class="tool">{{traca.value.ECME}} {{traca.value.designationECME}}</div>
+        </div>
+        <div>
+            <span name="sanction" class="material-icons ok" attr.data-value="{{traca.value.sanction}}"
+                (click)="toggleConf($event.target,traca)"
+                [ngStyle]="{'color': traca.value.sanction=='1' ? 'green' : ''}">check_circle_outline</span>
+            <span name="sanction" class="material-icons nok" attr.data-value="{{traca.value.sanction}}"
+                (click)="toggleConf($event.target,traca)" [ngStyle]="{'color': traca.value.sanction=='0' ? 'red' : ''}">
+                highlight_off</span>
+        </div>
+        <input type="text" class="comm" *ngIf="traca.value.sanction==0" value="{{traca.value.comment}}" />
+    </div>
+</div>
+<button mat-raised-button (click)="recordTraca(tracasArray.value)" disabled="!enableTraca">CONFIMER</button>
+<!-- </div>
+</div> -->

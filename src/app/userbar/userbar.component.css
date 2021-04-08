@@ -1,0 +1,6 @@
+.identification {
+    display: grid;
+    grid-template-rows: auto;
+    grid-template-columns: auto auto;
+    column-gap: 2em;
+}

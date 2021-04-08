@@ -1,0 +1,14 @@
+<div class="groupRow">
+    <div class="groupName" *ngIf="!editGroupName">
+        {{group.NOM}}
+    </div>
+    <input #inputGroupName type="text" name="" id="" value="{{group.NOM}}" *ngIf="editGroupName">
+    <div class="editGroupName edit">
+        <button mat-raised-button (click)="editGroupAction()">EDIT</button>
+    </div>
+</div>
+
+<div class="subOp" *ngFor="let subOpe of group.OPERATIONS_DETAILLEES">
+    <app-subOperation [subOpe]="subOpe"></app-subOperation>
+
+</div>

@@ -1,0 +1,25 @@
+<div class="traca-container">
+    <div class="top">
+        <div class="title">
+            <span class="material-icons" *ngIf="tracaList.PROD_TRACA_DETAILS">lock</span>
+            <h3>Traçabilité</h3>
+        </div>
+        <div class="role" *ngIf="role==2">Qualité</div>
+    </div>
+    <button mat-raised-button (click)="displayAnAlert()" *ngIf="tracaList.PROD_TRACA_DETAILS">EDIT TRACA <span
+            class="material-icons">
+            lock_open
+        </span>
+    </button>
+    <div class="traca-type-container" [ngSwitch]="tracaList.TYPE_TRACA">
+
+        <app-autocontrole *ngSwitchCase="1" [subOperation]="subOperation" [tracas]="tracaList.TRACA_DETAILS"
+            [enableTraca]="enable">
+        </app-autocontrole>
+        <app-material *ngSwitchCase="2" [subOperation]="subOperation" [tracas]="tracaList.TRACA_DETAILS"
+            [matInput]="tracaInput" [enableTraca]="enable"></app-material>
+        <app-thickness *ngSwitchCase="4" [subOperation]="subOperation" [tracas]="tracaList"></app-thickness>
+        <app-workorder *ngSwitchCase="3" [subOperation]="subOperation" [tracas]="tracaList.TRACA_DETAILS">
+        </app-workorder>
+    </div>
+</div>

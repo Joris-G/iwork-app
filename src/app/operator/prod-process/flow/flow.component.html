@@ -1,0 +1,8 @@
+<h2>OP</h2>
+<div class="operations">
+    <div class="operationItem" *ngFor="let operation of prodProcess.process.LISTE_OPERATIONS"
+        (click)="clickOpActions(operation,$event)">
+        {{operation.ORDRE}}
+    </div>
+    <!-- <div class="currentOperationTitle" *ngIf="currentOpe">#{{currentOpe.ORDRE}} - {{currentOpe.NOM_OPERATION}}</div> -->
+</div>

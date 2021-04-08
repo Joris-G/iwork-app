@@ -1,0 +1,28 @@
+:host {
+    /* height: 100%; */
+    overflow: hidden;
+}
+.top {
+    display: flex;
+    justify-content: space-between;
+}
+img {
+    width: 0.5em;
+}
+.traca-container {
+    display: grid;
+    grid-template-rows: fit-content fit-content 1fr;
+    row-gap: 2em;
+    overflow: auto;
+    height: 100%;
+    /* overflow-y: scroll; */
+}
+.traca-type-container {
+    height: 100%;
+    overflow-y: auto;
+}
+.role {
+    color: rgb(230, 0, 50);
+    font-weight: bold;
+    text-decoration: underline;
+}

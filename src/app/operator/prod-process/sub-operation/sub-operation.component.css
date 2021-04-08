@@ -1,0 +1,50 @@
+:host {
+    width: 100%;
+    height: 100%;
+}
+img {
+    width: 2em;
+}
+.subOperations {
+    background-color: rgba(255, 255, 255, 0.25);
+    border-radius: 0.5em;
+    padding: 0.5em;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+.topSubOpe {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.subOperation-title {
+    height: fit-content;
+}
+.content {
+    height: auto;
+    overflow: hidden;
+}
+
+.step-contener {
+    display: grid;
+    grid-template-columns: auto auto;
+    margin-top: 1em;
+    column-gap: 2em;
+    height: unset;
+    overflow: hidden;
+}
+
+.subOperation-traca {
+    min-width: 40%;
+    height: 100%;
+    overflow: auto;
+}
+.tabGroup {
+    height: 100%;
+}
+.mat-tab-body-content {
+    height: 100%;
+    overflow: hidden;
+}

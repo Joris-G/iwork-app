@@ -1,0 +1,11 @@
+:host {
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.opSap {
+    margin-bottom: 2em;
+    background-color: tomato;
+    border-radius: 0.5em;
+}

@@ -1,0 +1,15 @@
+<div class="part-info-container">
+    <div class="top">
+        <h2>la pièce</h2>
+        <button mat-icon-button>
+            <mat-icon>info_outlined</mat-icon>
+        </button>
+    </div>
+
+    <p>Article SAP : {{prodProcess.ARTICLE.ARTICLE_SAP}}</p>
+    <p>Désignation : {{prodProcess.ARTICLE.DESIGNATION}}</p>
+    <p>Indice Process : {{prodProcess.process.INDICE_PROCESS}}</p>
+    <p>Numéro d'OF : {{prodProcess.ORDRE_FABRICATION}}</p>
+    <p *ngIf="prodProcess.PRENOM_PIECE">Nom de la pièce : {{prodProcess.PRENOM_PIECE}}</p>
+
+</div>

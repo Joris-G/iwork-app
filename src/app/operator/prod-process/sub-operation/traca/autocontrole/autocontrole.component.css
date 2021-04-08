@@ -1,0 +1,25 @@
+.tracaList {
+    display: grid;
+    grid-template-columns: auto;
+    row-gap: 1em;
+    border-collapse: separate;
+    border-spacing: 1em;
+    margin: 2em 0;
+}
+.traca {
+    background-color: rgba(0, 13, 36, 0.8);
+    display: grid;
+    grid-template-columns: 10fr 1fr;
+    padding: 1em;
+    border-radius: 1em;
+}
+
+img {
+    width: 3em;
+}
+.ok.selected {
+    color: green;
+}
+.nok.selected {
+    color: red;
+}

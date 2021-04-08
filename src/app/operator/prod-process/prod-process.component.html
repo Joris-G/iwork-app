@@ -1,0 +1,15 @@
+<div class="prod-process-component">
+    <div class="col1">
+        <app-part-info class="part-info" [prodProcess]="prodProcess"></app-part-info>
+        <div class="process-nav">
+            <app-flow class="flow" [prodProcess]="prodProcess" (currentOperation)="showOperation($event)"></app-flow>
+            <app-sub-process class="sub-process" [operations]="currentOperation"
+                (currentSubOperation)="showSubOperation($event)" *ngIf="currentOperation"></app-sub-process>
+        </div>
+    </div>
+    <div class="col2">
+        <app-sub-operation class="sub-operation" [subOperation]="currentSubOperation" *ngIf="currentSubOperation">
+        </app-sub-operation>
+    </div>
+
+</div>

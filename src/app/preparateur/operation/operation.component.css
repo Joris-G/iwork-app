@@ -1,0 +1,11 @@
+.opSapRow {
+    display: flex;
+    justify-content: space-between;
+}
+
+.edit {
+    display: none;
+}
+div:hover > .edit {
+    display: flex;
+}

@@ -1,0 +1,8 @@
+:host {
+    /* height: 100%; */
+    overflow: hidden;
+}
+img {
+    width: 100%;
+    object-fit: contain;
+}
