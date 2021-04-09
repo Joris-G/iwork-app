@@ -1,27 +1,20 @@
-:host {
+.prep-content {
+    margin: 0.5em;
     display: grid;
-    grid-template-columns: max-content auto;
-    column-gap: 2em;
-    width: 100%;
-    padding: 0.5em;
-    height: 100%;
-}
-.col1 {
-    display: grid;
-    grid-template-rows: min-content auto;
-    row-gap: 1em;
-    overflow: hidden;
-    height: 100%;
-}
-.col2 {
-    display: flex;
-    overflow: hidden;
+    /* grid-template-rows: max-content auto; */
+    row-gap: 2em;
     height: 100%;
 }
 .part {
+    width: auto;
     border-radius: 0.5em;
     padding: 0.5em;
     background-color: rgba(255, 255, 255, 0.8);
+    display: flex;
+}
+.process {
+    padding: 0.5em;
+    overflow: hidden;
 }
 .processToolBar {
     display: grid;

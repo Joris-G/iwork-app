@@ -8,6 +8,7 @@ import { environment } from 'src/environments/environment';
 export class ProcessService {
 
 
+
   baseUrl = environment.apiUrl;
   constructor(private http: HttpClient) { }
 
@@ -22,5 +23,9 @@ export class ProcessService {
 
   modifySubOperationName(idSubOpe: any, name: string) {
     return this.http.get(`${this.baseUrl}/modifyProcess.php?toMod=subOpName&idSubOp=${idSubOpe}&newNom=${name}`);
+  }
+
+  modifyInstruction(idStep: any, instruction: string) {
+    return this.http.get(`${this.baseUrl}/modifyProcess.php?toMod=instructionText&idStep=${idStep}&newInstruction=${instruction}`);
   }
 }

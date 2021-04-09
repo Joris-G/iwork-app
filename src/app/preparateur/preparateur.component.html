@@ -1,49 +1,43 @@
-<div class="col1">
-    <div class="part">
+<div class="prep-content">
+    <div class="part" [ngStyle]="{ 'flex-direction' : (displayProcess)? 'row' : 'flex' }">
         <div class="title">piece</div>
         <mat-form-field>
             <input matInput #articleSapInput placeholder="Référence SAP" value="7172102">
         </mat-form-field>
         <button #btnGo mat-raised-button (click)=getAllProcesses()>GO</button>
         <div class="designation"></div>
+        <div class="processes" *ngIf="!displayProcess">
+            <mat-table #table [dataSource]="dataSource">
+                <ng-container matColumnDef="idProcess">
+                    <mat-header-cell *matHeaderCellDef> ID PROCESS </mat-header-cell>
+                    <mat-cell *matCellDef="let row"> {{row.idProcess}} </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="version">
+                    <mat-header-cell *matHeaderCellDef> VERSION </mat-header-cell>
+                    <mat-cell *matCellDef="let row"> {{row.version}} </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="creationDate">
+                    <mat-header-cell *matHeaderCellDef> DATE DE CREATION </mat-header-cell>
+                    <mat-cell *matCellDef="let row"> {{row.creationDate}} </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="creator">
+                    <mat-header-cell *matHeaderCellDef> CREE PAR </mat-header-cell>
+                    <mat-cell *matCellDef="let row"> {{row.creator}} </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="startService">
+                    <mat-header-cell *matHeaderCellDef> MISE EN SERVICE </mat-header-cell>
+                    <mat-cell *matCellDef="let row"> {{row.startService}} </mat-cell>
+                </ng-container>
+                <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="rowProcessClickAction(row)">
+                </mat-row>
+            </mat-table>
+        </div>
+        <div class="processSelected" *ngIf="displayProcess">
+            Process sélectionné : {{selectedProcess.ID_PROCESS}}
+        </div>
     </div>
-    <div class="processes">
-        <mat-table #table [dataSource]="dataSource">
-            <ng-container matColumnDef="idProcess">
-                <mat-header-cell *matHeaderCellDef> ID PROCESS </mat-header-cell>
-                <mat-cell *matCellDef="let row"> {{row.idProcess}} </mat-cell>
-            </ng-container>
-            <ng-container matColumnDef="version">
-                <mat-header-cell *matHeaderCellDef> VERSION </mat-header-cell>
-                <mat-cell *matCellDef="let row"> {{row.version}} </mat-cell>
-            </ng-container>
-            <ng-container matColumnDef="creationDate">
-                <mat-header-cell *matHeaderCellDef> DATE DE CREATION </mat-header-cell>
-                <mat-cell *matCellDef="let row"> {{row.creationDate}} </mat-cell>
-            </ng-container>
-            <ng-container matColumnDef="creator">
-                <mat-header-cell *matHeaderCellDef> CREE PAR </mat-header-cell>
-                <mat-cell *matCellDef="let row"> {{row.creator}} </mat-cell>
-            </ng-container>
-            <ng-container matColumnDef="startService">
-                <mat-header-cell *matHeaderCellDef> MISE EN SERVICE </mat-header-cell>
-                <mat-cell *matCellDef="let row"> {{row.startService}} </mat-cell>
-            </ng-container>
-            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-            <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="rowProcessClickAction(row)"></mat-row>
-        </mat-table>
-    </div>
-</div>
-<div class="col2" *ngIf="displayProcess">
-    <div class="processToolBar">
-        <button mat-raised-button>Nouveau</button>
-        <button mat-raised-button>Lier SAP</button>
-        <button mat-raised-button>Nouveau Groupe</button>
-        <button mat-raised-button>Nouvelle Sous Ope</button>
-        <button mat-raised-button>Nouvelle Step</button>
-    </div>
-    <app-process [process]="selectedProcess"></app-process>
-    <div class="processTable">
-
+    <div class="process" *ngIf="displayProcess">
+        <app-process [process]="selectedProcess"></app-process>
     </div>
 </div>

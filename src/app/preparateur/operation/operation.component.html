@@ -1,12 +1,14 @@
 <div class="opSapRow" (mouseover)=opSapRowOverAction($event.target,operation)>
-    <div class="opSapName" *ngIf="!editOpSapName">
-        {{operation.NOM_OPERATION}}
+    <div class="opSapOrdre">
+        <div class="numOp">{{operation.ORDRE}}</div>
     </div>
-    <input #inputOpeSapName type="text" name="" id="" value="{{operation.NOM_OPERATION}}" *ngIf="editOpSapName">
+    <div class="opSapName" *ngIf="!editOpSapName">{{operation.NOM_OPERATION}}</div>
+    <input class="opSapName" #inputOpeSapName type="text" name="" id="" value="{{operation.NOM_OPERATION}}"
+        *ngIf="editOpSapName">
+
     <div class="editOpSapName edit">
-        <button mat-raised-button (click)="editOperationAction()">EDIT</button>
+        <button mat-icon-button (click)="editOperationAction()">
+            <mat-icon>edit</mat-icon>
+        </button>
     </div>
-</div>
-<div class="group" *ngFor="let group of operation.OPERATION_GROUP">
-    <app-group [group]="group"></app-group>
 </div>

@@ -41,7 +41,9 @@ import { MatTableModule } from '@angular/material/table';
 import { ProcessListComponent } from './preparateur/process-list/process-list.component';
 import { ProcessComponent } from './preparateur/process/process.component';
 import { OperationComponent } from './preparateur/operation/operation.component';
-import { GroupComponent } from './preparateur/group/group.component'
+import { GroupComponent } from './preparateur/group/group.component';
+import { SubOpeComponent } from './preparateur/sub-ope/sub-ope.component';
+import { StepComponent } from './preparateur/step/step.component'
 
 
 @NgModule({
@@ -76,6 +78,8 @@ import { GroupComponent } from './preparateur/group/group.component'
     ProcessComponent,
     OperationComponent,
     GroupComponent,
+    SubOpeComponent,
+    StepComponent,
   ],
   imports: [
     BrowserModule,

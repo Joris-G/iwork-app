@@ -23,6 +23,14 @@ switch ($_GET['toMod']) {
             'newNom' => $_GET['newNom'],
             'idSubOp' => $_GET['idSubOp']
         ]);
+        break;
+    case 'instructionText':
+        $sql = "UPDATE t_process_instructions SET INSTRUCTION = :newInstruction WHERE ID_STEP = :idStep";
+        $query = $con->createQuery($sql, [
+            'newInstruction' => $_GET['newInstruction'],
+            'idStep' => $_GET['idStep']
+        ]);
+        break;
     default:
         # code...
         break;

@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { ProcessService } from '@app/service/process.service';
 
 @Component({
@@ -7,12 +7,20 @@ import { ProcessService } from '@app/service/process.service';
   styleUrls: ['./group.component.css']
 })
 export class GroupComponent implements OnInit {
-  @Input() group;
+  @Input() group: any;
   editGroupName: boolean = false;
   @ViewChild('inputGroupName') inputGroupName: ElementRef<HTMLInputElement>;
+  @Output() notifySelectedStep = new EventEmitter();
+  @Input() showDetails: boolean;
+  @Input() classToAdd: string[];
+  groupSelect: boolean = false;
   constructor(private processService: ProcessService) { }
 
   ngOnInit(): void {
+  }
+
+  selectStepEvent(event: any) {
+    this.notifySelectedStep.emit(event);
   }
 
   editGroupAction() {
@@ -32,5 +40,15 @@ export class GroupComponent implements OnInit {
     }
     console.log('switch mode');
     this.editGroupName = !this.editGroupName;
+  }
+  toogleSelectGroup() {
+    if (this.groupSelect) {
+      this.groupSelect = false;
+      this.showDetails = false;
+    } else {
+      this.groupSelect = true;
+      this.showDetails = true;
+    }
+
   }
 }
