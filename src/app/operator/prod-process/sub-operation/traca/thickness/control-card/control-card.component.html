@@ -1,6 +1,5 @@
-<div *ngFor="let data of _previousDatas">{{data.VALEUR}}</div>
+<h3>carte de controle</h3>
 <div class="chart-wrapper">
-    <canvas baseChart [datasets]="lineChartData" [labels]="lineChartLabels" [options]="lineChartOptions"
-        [colors]="lineChartColors" [legend]="lineChartLegend" [chartType]="lineChartType" [plugins]="lineChartPlugins">
+    <canvas id="controlCardChart">
     </canvas>
 </div>

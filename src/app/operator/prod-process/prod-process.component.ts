@@ -1,4 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Observable } from 'rxjs';
 import { MaterialService } from 'src/app/service/material.service';
 
 @Component({
@@ -6,63 +7,8 @@ import { MaterialService } from 'src/app/service/material.service';
   templateUrl: './prod-process.component.html',
   styleUrls: ['./prod-process.component.css']
 })
-export class ProdProcessComponent implements OnInit {
+export class ProdProcessComponent implements OnInit, OnChanges {
 
-  // prodProcess: any = {
-  //   part: {
-  //     REFSAP: 7172242,
-  //     DESIGNATION: 'BOX LH',
-  //   },
-  //   workorder: 53000000,
-  //   name: '',
-  //   process: {
-  //     id: 1,
-  //     operations: [{
-  //       OPERATION_NUMBER: 1,
-  //       OPERATION_NAME: 'DECOUPE LECTRA',
-  //       subOperations: [
-  //         {
-  //           type: 'CONTROLE',
-  //           title: 'Controle des hinges',
-  //           instruction: "S'assurer qu'il n'y a pas de bavures",
-  //           traca:{
-  //             type:'CONTROLE',
-  //           }
-  //         },
-  //         {
-  //           type: 'COLLAGE',
-  //           title: 'Faire le collage',
-  //           instruction: "Dégraisser puis déposer un film de colle d'épaisseur constante sur le support",
-  //           traca:{
-  //             type:'MATIERE'
-  //           }
-  //         },
-  //       ]
-  //     },
-  //     {
-  //       OPERATION_NUMBER: 2,
-  //       OPERATION_NAME: 'MOULAGE',
-  //       subOperations: [
-  //         {
-  //           type: 'CONTROLE',
-  //           title: 'Kit complet ?',
-  //           instruction: "Compter les plis puis comparer avec le nombre total de plis théorique",
-  //           traca:{
-  //             type:'AUTO-CONTROLE'
-  //           }
-  //         },
-  //         {
-  //           type: 'MOULAGE',
-  //           title: 'Poser le plis S1P1',
-  //           instruction: "Draper suivant instructions",
-  //           traca:{
-  //             type:'AUTO-CONTROLE'
-  //           }
-  //         },
-  //       ]
-  //     }]
-  //   }
-  // };
   prodProcess: any;
   currentOperation: any;
   currentSubOperation: any;
@@ -76,6 +22,11 @@ export class ProdProcessComponent implements OnInit {
     console.log(this.lastOpe);
     this.currentOperation = this.lastOpe.opSAP;
     this.currentSubOperation = this.lastOpe.opeDet;
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    console.log('change');
+    this.ngOnInit();
   }
 
   showOperation(operation: any) {

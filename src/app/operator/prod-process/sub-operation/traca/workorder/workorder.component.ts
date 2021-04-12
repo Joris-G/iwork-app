@@ -19,11 +19,9 @@ export class WorkorderComponent implements OnInit {
   constructor(private tracaService: TracaService, private partInfoService: PartService) { }
 
   ngOnInit(): void {
-    console.log(this.tracas);
     this.tracas.forEach((traca: any) => {
       this.addControl(traca);
     });
-    console.log(this.tracasArray);
   }
 
   addControl(traca: any) {

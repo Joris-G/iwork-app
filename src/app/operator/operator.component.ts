@@ -14,8 +14,10 @@ export class OperatorComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    console.log('init');
     document.getElementById('operator').onclick = () => {
       this.process = null;
+      this.lastOpe = null;
     };
 
   }

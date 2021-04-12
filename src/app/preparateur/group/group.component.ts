@@ -14,6 +14,7 @@ export class GroupComponent implements OnInit {
   @Input() showDetails: boolean;
   @Input() classToAdd: string[];
   groupSelect: boolean = false;
+  @Output() selectedSubOperation: any = new EventEmitter;
   constructor(private processService: ProcessService) { }
 
   ngOnInit(): void {
@@ -50,5 +51,8 @@ export class GroupComponent implements OnInit {
       this.showDetails = true;
     }
 
+  }
+  selectSubOpeEvent(subOpe: any) {
+    this.selectedSubOperation.emit(subOpe);
   }
 }

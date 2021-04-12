@@ -11,10 +11,11 @@ import { ProdProcessServiceService } from '@app/service/prod-process-service.ser
 export class PreparateurComponent implements OnInit, OnChanges, AfterViewInit {
   displayedColumns: string[] = ['idProcess', 'version', 'creationDate', 'creator', 'startService'];
   dataSource: MatTableDataSource<any>;
-  displayProcess: boolean;
+  displayProcess: boolean = false;
   allProcess: any;
   selectedProcess: any;
   @ViewChild('articleSapInput') inputArticle: ElementRef<HTMLInputElement>;
+  displayProcessList: boolean = false;
   constructor(private processService: ProdProcessServiceService, private partService: PartService) { }
 
   ngAfterViewInit(): void {
@@ -35,12 +36,14 @@ export class PreparateurComponent implements OnInit, OnChanges, AfterViewInit {
   }
   showProcess(idProcess: string) {
     this.displayProcess = !this.displayProcess;
+    this.displayProcessList = false;
     this.selectedProcess = this.allProcess.find(process => process.ID_PROCESS == idProcess);
   }
 
   getAllProcesses() {
     const article = this.inputArticle.nativeElement.value;
     this.processService.getAllProcesses(article).subscribe((res: any) => {
+      this.displayProcessList = true;
       this.allProcess = res
       console.log(res);
       const data = []
@@ -50,6 +53,7 @@ export class PreparateurComponent implements OnInit, OnChanges, AfterViewInit {
 
       this.dataSource = new MatTableDataSource<any>(data);
       console.log(this.dataSource);
+
     })
   }
 }

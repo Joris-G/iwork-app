@@ -1,12 +1,16 @@
 <div class="prep-content">
-    <div class="part" [ngStyle]="{ 'flex-direction' : (displayProcess)? 'row' : 'flex' }">
-        <div class="title">piece</div>
-        <mat-form-field>
-            <input matInput #articleSapInput placeholder="Référence SAP" value="7172102">
-        </mat-form-field>
-        <button #btnGo mat-raised-button (click)=getAllProcesses()>GO</button>
-        <div class="designation"></div>
-        <div class="processes" *ngIf="!displayProcess">
+    <div class="processSelector" [ngStyle]="{ 'flex-direction' : (displayProcess)? 'row' : 'flex' }">
+        <div class="title">
+            <h3>piece</h3>
+        </div>
+        <div class="partSelection">
+            <mat-form-field>
+                <input matInput #articleSapInput placeholder="Référence SAP" value="7172102">
+            </mat-form-field>
+            <button #btnGo mat-raised-button (click)=getAllProcesses()>GO</button>
+            <div class="designation"></div>
+        </div>
+        <div class="processes" *ngIf="displayProcessList">
             <mat-table #table [dataSource]="dataSource">
                 <ng-container matColumnDef="idProcess">
                     <mat-header-cell *matHeaderCellDef> ID PROCESS </mat-header-cell>

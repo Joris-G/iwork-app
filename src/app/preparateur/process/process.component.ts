@@ -13,7 +13,7 @@ export class ProcessComponent implements OnInit {
   selectedStep: any;
   stepSelect: boolean = false;
   showGroupsDetails: boolean = false;
-
+  selectedSubOperation: any;
   constructor() { }
 
   ngOnInit(): void {
@@ -31,19 +31,20 @@ export class ProcessComponent implements OnInit {
       this.operationSelect = true;
     }
   }
-  showStep(step: any) {
-    console.log(step);
-    if (step) {
-      this.stepSelect = true;
-      this.selectedStep = step;
-    } else {
-      this.stepSelect = false;
-      this.selectedStep = null;
-    }
+  // showSubOp() {
+  //   if (step) {
+  //     this.stepSelect = true;
+  //     this.selectedStep = step;
+  //   } else {
+  //     this.stepSelect = false;
+  //     this.selectedStep = null;
+  //   }
 
-  }
+  // }
   toggleShowDetails() {
     this.showGroupsDetails = !this.showGroupsDetails;
   }
-
+  subOperationEvent(event) {
+    this.selectedSubOperation = event;
+  }
 }

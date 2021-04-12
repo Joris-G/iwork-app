@@ -12,12 +12,3 @@
         </button>
     </div>
 </div>
-<div class="steps">
-    <div class="step" *ngFor="let step of subOpe.STEPS" (click)="stepAction(step)">
-        <img src="assets/img/shield.svg" alt="qual" *ngIf="step.TRACA" style="width: 100%;">
-    </div>
-</div>
-<button mat-icon-button>
-    <mat-icon>add</mat-icon>
-    Nouvelle étape
-</button>

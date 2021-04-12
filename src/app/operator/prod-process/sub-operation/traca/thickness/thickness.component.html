@@ -10,7 +10,7 @@
         </thead>
         <tbody>
             <tr id="{{traca.ID_TRACA_MESURE}}" *ngFor="let traca of tracas.TRACA_DETAILS"
-                (click)="selectPoint($event.target)">
+                [ngStyle]="{'color': selectedPoint==traca ? 'deeppink': 'inherit'}" (click)="selectPoint(traca)">
                 <td>{{traca.NOM_MESURE}}</td>
                 <td>{{traca.NOMINAL}}</td>
                 <td>

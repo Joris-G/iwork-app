@@ -1,15 +1,4 @@
-<nav class="nav" *ngIf="user">
-  <ul class="nav nav-pills">
-    <img src="assets/img/Logo/logo-fond-bleu-bis.png" alt="image" routerLink="" width="150px">
-    <li class="nav-item" id="operator"><a class="nav-link" routerLink="app-operator">OPERATEUR</a></li>
-    <li class="nav-item" id="preparateur"><a class="nav-link" routerLink="app-preparateur">PREPARATEUR</a></li>
-    <li class="nav-item" id="gestionnaire"><a class="nav-link" routerLink="app-gestionnaire">GESTIONNAIRE</a></li>
-  </ul>
-
-  <app-userbar [user]="user" class="userbar"></app-userbar>
-  <a class="nav-item nav-link" (click)="logout()">DECONNEXION</a>
-</nav>
-
+<app-header></app-header>
 <div class="router-container">
   <router-outlet></router-outlet>
 </div>

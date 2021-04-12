@@ -1,4 +1,5 @@
 import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
+import * as Chart from 'chart.js';
 import { ChartDataSets, ChartOptions } from 'chart.js';
 import { Color, Label } from 'ng2-charts';
 
@@ -13,7 +14,6 @@ export class ControlCardComponent implements OnInit {
 
   @Input() set previousDatas(value: any) {
     this._previousDatas = value;
-    console.log(this._previousDatas);
     let points: number[] = [];
     let legend: string[] = [];
     let tolMax: number[] = [];
@@ -33,55 +33,75 @@ export class ControlCardComponent implements OnInit {
     return this._previousDatas;
   }
   drawControlCard(points: number[], tolMax: number[], tolMin: number[], legend: string[], label: string) {
-    this.lineChartData = [];
-    this.lineChartLabels = [];
-    this.lineChartData.push(
-      { data: points, label: label, lineTension: 0 },
-      { data: tolMax, label: 'Tolérance Max', pointStyle: 'line' },
-      { data: tolMin, label: 'Tolérance Min', pointStyle: 'line' });
-    this.lineChartLabels = legend;
+    let controlCardChart = new Chart('controlCardChart', {
+      type: 'line',
+      data: {
+        labels: legend,
+        datasets: [
+          {
+            data: points,
+            label: label,
+            fill: false,
+            borderColor: 'deeppink',
+            pointBorderWidth: 5,
+          },
+          {
+            data: tolMax,
+            label: 'Tolérance Max',
+            fill: false,
+            borderColor: 'rgb(255,0,0)',
+          },
+          {
+            data: tolMin,
+            label: 'Tolérance Min',
+            fill: false,
+            borderColor: 'rgb(255,0,0)',
+          },
+        ]
+      },
+      options: {
+        scales: {
+          yAxes: [{
+            ticks: {
+              fontColor: 'rgb(255,255,255)',
+              // beginAtZero: true,
+              suggestedMin: Math.min.apply(null, points)
+            },
+            gridLines: {
+              color: 'rgb(255,255,255)',
+            },
+            scaleLabel: {
+              fontColor: 'rgb(255,255,255)',
+              display: true,
+            }
+          }],
+          xAxes: [{
+            ticks: {
+              fontColor: 'black',
+            },
+            gridLines: {
+              color: 'black',
+            },
+            scaleLabel: {
+              fontColor: 'black',
+              display: true,
+            }
+          }]
+        },
+        legend: {
+          display: false,
+        }
+      }
+    });
   }
 
 
-  lineChartData: ChartDataSets[] = [
 
-  ];
-
-  lineChartLabels: Label[] = [];
-
-  lineChartOptions: ChartOptions = {
-    responsive: true,
-    maintainAspectRatio: true,
-    plugins: {
-      title: {
-        display: true,
-        text: 'Carte de controle'
-      }
-    }
-  };
-
-  lineChartColors: Color[] = [
-    {
-      borderColor: 'black',
-      backgroundColor: 'rgba(255,255,255,0)',
-    },
-    {
-      borderColor: 'red',
-      backgroundColor: 'rgba(255,255,255,0)',
-    },
-    {
-      borderColor: 'red',
-      backgroundColor: 'rgba(255,255,255,0)',
-    },
-  ];
-
-  lineChartLegend = false;
-  lineChartPlugins = [];
-  lineChartType = 'line';
 
   constructor() { }
 
   ngOnInit(): void {
+
   }
 
 }

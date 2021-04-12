@@ -35,7 +35,6 @@ export class SubOperationComponent implements OnInit, AfterViewInit {
       refSap: inputDataScan[0],
       id: inputDataScan[1]
     }
-    console.log(identifier);
     switch (identifier) {
       case 'MAT':
 

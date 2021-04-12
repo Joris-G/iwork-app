@@ -22,10 +22,8 @@ export class AutocontroleComponent implements OnInit {
     this.controlToolService.getControlToolList().subscribe((response: any) => {
       this.toolList = response;
       this.tracas.forEach((traca: any) => {
-        console.log(traca)
         this.addControl(traca);
       });
-      console.log(this.tracasArray)
     });
   }
 
@@ -39,7 +37,6 @@ export class AutocontroleComponent implements OnInit {
       ECME: traca.ID_TYPE_ECME,
       designationECME: this.getTool(traca.ID_TYPE_ECME),
     }));
-    console.log(this.tracasArray);
   }
 
   getTool(ID_TYPE_ECME: any) {
@@ -70,7 +67,6 @@ export class AutocontroleComponent implements OnInit {
 
   recordTraca(tracas: any) {
     tracas.forEach((traca: any) => {
-      console.log(traca);
       this.tracaService.saveTracaControl(traca, this.subOperation).subscribe((response: any) => {
       })
     });

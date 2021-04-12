@@ -1,0 +1,15 @@
+<div class="stickersCol" *ngFor="let colStickers of stickersDatas">
+    <div class="sticker" *ngFor="let sticker of colStickers.datas">
+        <div class="textData">
+
+        </div>
+        <div class="qrCode"></div>
+
+        <div class="article">{{sticker[0]}}</div>
+        <div class="workorder"></div>
+
+        <div class="ebauche" *ngIf="colStickers[3].length>1">
+
+        </div>
+    </div>
+</div>

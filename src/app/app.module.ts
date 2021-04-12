@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -43,9 +44,21 @@ import { ProcessComponent } from './preparateur/process/process.component';
 import { OperationComponent } from './preparateur/operation/operation.component';
 import { GroupComponent } from './preparateur/group/group.component';
 import { SubOpeComponent } from './preparateur/sub-ope/sub-ope.component';
-import { StepComponent } from './preparateur/step/step.component'
-
-
+import { TechDataComponent } from './preparateur/tech-data/tech-data.component';
+import { EditInstructionComponent } from './preparateur/edit-instruction/edit-instruction.component';
+import { EditTracaComponent } from './preparateur/edit-traca/edit-traca.component'
+import { MatListModule } from '@angular/material/list';
+import { MatSelectModule } from '@angular/material/select';
+import { GestContentComponent } from './gestionnaire/gest-content/gest-content.component';
+import { GestNavBarComponent } from './gestionnaire/gest-nav-bar/gest-nav-bar.component';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatCardModule } from '@angular/material/card';
+import { HeaderComponent } from './shared/header/header.component';
+import { GestPeComponent } from './gestionnaire/gest-content/gest-pe/gest-pe.component';
+import { GestAssyComponent } from './gestionnaire/gest-content/gest-assy/gest-assy.component';
+import { StickersComponent } from './shared/print/stickers/stickers.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -79,7 +92,15 @@ import { StepComponent } from './preparateur/step/step.component'
     OperationComponent,
     GroupComponent,
     SubOpeComponent,
-    StepComponent,
+    TechDataComponent,
+    EditInstructionComponent,
+    EditTracaComponent,
+    GestContentComponent,
+    GestNavBarComponent,
+    HeaderComponent,
+    GestPeComponent,
+    GestAssyComponent,
+    StickersComponent,
   ],
   imports: [
     BrowserModule,
@@ -95,6 +116,14 @@ import { StepComponent } from './preparateur/step/step.component'
     ChartsModule,
     NgxQRCodeModule,
     MatTableModule,
+    MatListModule,
+    MatSelectModule,
+    MatSidenavModule,
+    MatDividerModule,
+    MatCardModule,
+    MatPaginatorModule,
+    BrowserAnimationsModule,
+
   ],
   providers: [],
   bootstrap: [AppComponent]

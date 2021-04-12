@@ -1,41 +1,6 @@
 :host {
     min-height: calc(100% - 50px);
 }
-nav {
-    display: flex;
-    justify-content: space-between;
-    background-color: var(--perso-color-bleuDaher2);
-    height: 50px;
-    position: fixed;
-    top: 0;
-    width: 100%;
-    overflow: hidden;
-}
-nav ul {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: left;
-    height: 100%;
-}
-nav ul li {
-    list-style: none;
-    margin-left: 1em;
-}
-
-nav ul li a {
-    text-decoration: none;
-    color: inherit;
-}
-
-nav ul li a:visited {
-    color: inherit;
-}
-
-.userbar {
-    justify-content: right;
-    display: flex;
-}
 .router-container {
     position: relative;
     top: 50px;

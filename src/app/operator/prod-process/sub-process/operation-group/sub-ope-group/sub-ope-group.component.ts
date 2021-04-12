@@ -33,7 +33,6 @@ export class SubOpeGroupComponent implements OnInit {
     for (const step of this.subOperation.STEPS) {
       if (step.TRACA) {
         if (step.TRACA.PROD_TRACA_DETAILS) {
-          console.log(step.TRACA.PROD_TRACA_DETAILS.SANCTION);
           if (step.TRACA.PROD_TRACA_DETAILS.SANCTION == '1') {
             this.tracaStatus = '2';
             return;

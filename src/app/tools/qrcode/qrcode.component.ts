@@ -14,8 +14,6 @@ export class QrcodeComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    console.log(this.command);
-    console.log(this.subOperation);
   }
 
 

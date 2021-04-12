@@ -13,8 +13,8 @@
     </div>
 </div>
 <div class="groupSubOp" *ngIf="showDetails">
-    <div class="subOp" *ngFor="let subOpe of group.OPERATIONS_DETAILLEES">
-        <app-sub-ope [subOpe]="subOpe" (stepEmitter)="selectStepEvent($event)"></app-sub-ope>
+    <div class="subOp" *ngFor="let subOpe of group.OPERATIONS_DETAILLEES" (click)="selectSubOpeEvent(subOpe)">
+        <app-sub-ope [subOpe]="subOpe"></app-sub-ope>
     </div>
     <button mat-icon-button>
         <mat-icon>add</mat-icon>

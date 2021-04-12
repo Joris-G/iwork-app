@@ -46,7 +46,6 @@ export class AppComponent implements OnInit {
   @HostListener("window:onbeforeunload", ["$event"])
 
   logout() {
-    console.log('try logout');
     this.authenticationService.logout();
     this.router.navigate(['/app-login']);
   }

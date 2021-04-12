@@ -38,7 +38,6 @@ export class LoginComponent implements OnInit {
 
   onSubmit() {
     this.submitted = true;
-    console.log('try submit')
     if (this.form.invalid) {
       console.error('remplir les champs !');
       return;
@@ -46,7 +45,6 @@ export class LoginComponent implements OnInit {
     this.loading = true;
 
     // this.authenticationService.login(this.f.username.value, this.f.password.value)
-    console.log(this.f)
     this.authenticationService.login(this.f)
       .pipe(first())
       .subscribe({
