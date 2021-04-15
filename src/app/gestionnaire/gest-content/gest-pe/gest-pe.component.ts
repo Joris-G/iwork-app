@@ -10,13 +10,14 @@ import { FileFunction } from '@app/_helpers/file.functions';
 })
 export class GestPeComponent implements OnInit {
   getList: any;
+  isSet: boolean = false;
   constructor(private supplyService: SupplyService, private fileFunction: FileFunction, private router: Router) { }
 
   ngOnInit(): void {
   }
   async onFileSelected(event: any) {
-    console.log(event);
     this.getList = await this.fileFunction.getCsv(event);
+    this.isSet = true;
   }
   showImportInfo() {
 

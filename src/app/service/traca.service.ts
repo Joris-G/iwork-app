@@ -7,12 +7,29 @@ import { environment } from '../../environments/environment';
 })
 export class TracaService {
 
+  startPointOperation: Date;
+  endPointOpeartion: Date;
+
+
+
+  initOperationTimer() {
+    this.startPointOperation = new Date();
+    console.log('start timer operation');
+  }
+  stopOperationTimer(prodOperation: any) {
+    this.endPointOpeartion = new Date();
+    console.log('end timer operation');
+    this.addOperationTime(prodOperation);
+  }
 
   baseUrl = environment.apiUrl;
   constructor(private http: HttpClient) { }
+  launchOperation(operation: any, prodProcess: any) {
+    return this.http.get(`${this.baseUrl}/launchScript.php?typeOperation=ope&idProdProcess=${prodProcess.ID_PROD_PROCESS}&idOperation=${operation.ID_OPERATION}`);
+  }
 
-  launchOperation(subOperation: any) {
-    return this.http.get(`${this.baseUrl}/launchSubOperation.php?idProdProcess=1&idProdSubOpe=${subOperation.ID_OPERATION_DETAILLEE}`);
+  launchSubOperation(subOperation: any) {
+    return this.http.get(`${this.baseUrl}/launchScript.php?typeOperation=subOpe&idProdoperation=1&idProdSubOpe=${subOperation.ID_OPERATION_DETAILLEE}`);
   }
 
   saveTracaControl(traca: any, subOperation: any) {
@@ -28,4 +45,10 @@ export class TracaService {
   getPreviousTraca(idTraca: number) {
     return this.http.get(`${this.baseUrl}/getPreviousTraca.php?tracaType=mesure&idTraca=${idTraca}`);
   }
+  addOperationTime(prodOperation: any) {
+    const duree = this.endPointOpeartion.getTime() - this.startPointOperation.getTime();
+    console.log(duree);
+  }
 }
+
+

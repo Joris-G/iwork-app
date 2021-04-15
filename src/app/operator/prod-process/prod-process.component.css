@@ -35,6 +35,9 @@
     flex-direction: column;
     overflow-y: auto;
 }
+.flow::-webkit-scrollbar {
+    display: none;
+}
 
 .process-nav {
     height: auto;
@@ -47,4 +50,7 @@
     background-color: rgba(255, 255, 255, 0.25);
     border-radius: 0.5em;
     overflow-y: auto;
+}
+.sub-process::-webkit-scrollbar {
+    display: none;
 }

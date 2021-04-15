@@ -18,9 +18,13 @@ export class SubOperationComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit() {
     this.focusTool = setInterval(() => {
+
       this.inputQr.nativeElement.focus();
     }, 300);
-
+    document.addEventListener('click', (event) => {
+      // console.log(event.target);
+      clearInterval(this.focusTool);
+    })
   }
 
   confEvent() {

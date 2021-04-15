@@ -4,22 +4,6 @@ body {
     padding: 0;
 }
 
-@media print {
-    html {
-        margin: 0;
-        padding: 0;
-        overflow: hidden;
-    }
-    @page {
-        margin: 0;
-        padding: 0;
-    }
-    :host > *:nth-child(3n) {
-        padding: 0;
-        page-break-after: always;
-    }
-}
-
 :host {
     height: 297mm;
     width: 210mm;
@@ -28,27 +12,26 @@ body {
     flex-wrap: wrap;
     padding-left: 7.2mm;
     padding-right: 7.2mm;
-    background-color: antiquewhite;
+    box-sizing: unset;
 }
 
 :host > * {
-    margin-top: 13.1mm;
-    margin-bottom: 12.1mm;
     padding-right: 2.5mm;
     display: inline-block;
 }
 
 :host > *:nth-child(3n) {
     padding: 0;
-    page-break-after: always;
+    /* page-break-after: always; */
 }
 
 .sticker {
     display: flex;
     align-items: center;
-    background-color: rgba(255, 0, 0, 0.5);
+    background-color: rgba(255, 255, 255, 0.5);
     width: 67.5mm;
     height: 35.9mm;
+    box-sizing: content-box;
 }
 
 .sticker > *:first-child {
@@ -59,4 +42,12 @@ body {
 
 .sticker > *:nth-child(2) {
     padding: 8mm 2mm;
+}
+.stickersCol {
+    margin-top: 13.1mm;
+    margin-bottom: 12.1mm;
+    box-sizing: content-box;
+}
+.qrCode {
+    max-width: 25mm;
 }

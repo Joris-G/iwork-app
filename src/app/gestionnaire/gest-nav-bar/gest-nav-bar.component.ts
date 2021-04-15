@@ -7,12 +7,14 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 })
 export class GestNavBarComponent implements OnInit {
   @Input() opened: boolean;
+  selectedId: number;
   @Output() selectedComponent = new EventEmitter();
   constructor() { }
 
   ngOnInit(): void {
   }
   showComponent(event) {
+    this.selectedId = event;
     this.selectedComponent.emit(event);
   }
 

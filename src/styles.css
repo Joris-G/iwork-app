@@ -34,3 +34,23 @@ app-root {
     font-family: "Raleway";
     src: url("assets/font/Raleway-Regular.ttf");
 }
+
+@media print {
+    html {
+        margin: 0;
+        padding: 0;
+        /* overflow: hidden; */
+    }
+    @page {
+        margin: 0;
+        padding: 0;
+        size: A4;
+    }
+    :host > *:nth-child(3n) {
+        padding: 0;
+        page-break-after: always;
+    }
+    :host {
+        box-sizing: content-box;
+    }
+}

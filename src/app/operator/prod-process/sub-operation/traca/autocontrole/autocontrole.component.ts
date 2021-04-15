@@ -31,7 +31,7 @@ export class AutocontroleComponent implements OnInit {
     this.tracasArray.push(new FormControl({
       idTraca: traca.ID_TRACA,
       idTracaControl: traca.ID_TRACA_CONTROLE,
-      sanction: traca.PROD_TRACA.SANCTION,
+      sanction: 0,
       comment: traca.PROD_TRACA.COMMENTAIRE == 'undefined' ? "pas de commentaire" : traca.PROD_TRACA.COMMENTAIRE,
       text: traca.TEXTE_TRACA,
       ECME: traca.ID_TYPE_ECME,

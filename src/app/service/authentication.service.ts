@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { UserAuth } from '@app/_interfaces/users/user-auth';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
@@ -20,9 +21,9 @@ export class AuthenticationService {
   }
 
   // login(username, password) {
-  login(form) {
+  login(user: UserAuth) {
     console.log('login');
-    return this.http.post<any>(`${environment.apiUrl}/authenticate.php`, { username: form.username.value, password: form.password.value })
+    return this.http.post<any>(`${environment.apiUrl}/authenticate.php`, { username: user.username, password: user.password })
       .pipe(map(user => {
         // store user details and jwt token in local storage to keep user logged in between page refreshes
         sessionStorage.setItem('currentUser', JSON.stringify(user));

@@ -59,6 +59,7 @@ import { HeaderComponent } from './shared/header/header.component';
 import { GestPeComponent } from './gestionnaire/gest-content/gest-pe/gest-pe.component';
 import { GestAssyComponent } from './gestionnaire/gest-content/gest-assy/gest-assy.component';
 import { StickersComponent } from './shared/print/stickers/stickers.component';
+import { DefaultComponent } from './modules/default/default.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -101,6 +102,7 @@ import { StickersComponent } from './shared/print/stickers/stickers.component';
     GestPeComponent,
     GestAssyComponent,
     StickersComponent,
+    DefaultComponent,
   ],
   imports: [
     BrowserModule,

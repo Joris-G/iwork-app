@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { TracaService } from '@app/service/traca.service';
 
 @Component({
@@ -12,6 +12,7 @@ export class ThicknessComponent implements OnInit {
   previousDatas: any[];
   selectedPreviousDatas: any = [];
   selectedPoint: any;
+  @ViewChild('inputThicknessValue') inputThicknessValue: ElementRef;
 
   constructor(private tracaService: TracaService) { }
 
@@ -33,5 +34,9 @@ export class ThicknessComponent implements OnInit {
   selectPoint(event: any) {
     this.selectedPoint = event;
     this.getSelectedPointPreviousDatas(event.ID_TRACA_MESURE)
+  }
+  newMeasureAction() {
+    console.log(this.inputThicknessValue);
+    this.selectedPreviousDatas.push({ mesure: this.inputThicknessValue, part: 'NewOF' });
   }
 }

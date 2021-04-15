@@ -1,4 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
   selector: 'app-part-info',
@@ -6,7 +7,6 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./part-info.component.css']
 })
 export class PartInfoComponent implements OnInit {
-
   @Input() prodProcess: any;
 
   constructor() { }

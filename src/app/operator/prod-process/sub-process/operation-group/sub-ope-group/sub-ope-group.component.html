@@ -2,7 +2,7 @@
 <!-- *ngIf="subOperation.STEPS[0].TRACA" -->
 <div class="process-status status-tri">
     <span>Prod</span>
-    <app-status-trio class="status" [status]="subOperation.PROD.STATUS"></app-status-trio>
+    <app-status-trio class="status" [status]="subOpeProdStatus"></app-status-trio>
 </div>
 <div class="traca-status status-tri" *ngIf="isTraca">
     <span>Qual</span>

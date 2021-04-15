@@ -9,13 +9,30 @@ import { environment } from '../../environments/environment';
 export class ProdProcessServiceService {
 
   baseUrl = environment.apiUrl;
-
+  process: any;
   constructor(private http: HttpClient) { }
 
   getAllTraca(articleSap: number, workorder: number): Observable<any> {
-    return this.http.get(`${this.baseUrl}/getProcess.php?articleSap=${articleSap}&OF=${workorder}`);
+    this.process = this.http.get(`${this.baseUrl}/getProcess.php?articleSap=${articleSap}&OF=${workorder}`);
+    return this.process;
   }
   getAllProcesses(articleSap: string) {
     return this.http.get(`${this.baseUrl}/getAllProcesses.php?articleSap=${articleSap}`);
+  }
+
+  isProd(): boolean {
+    return (this.process.prodProcess);
+  }
+  isProdOpe(prodProcess: any): boolean {
+    return (prodProcess.operations);
+  }
+  isProdSubOpe(operation: any): boolean {
+    return (operation.subOperations);
+  }
+  isProdStep(subOperations): boolean {
+    return (subOperations.steps);
+  }
+  isTraca(step): boolean {
+    return (step.traca);
   }
 }

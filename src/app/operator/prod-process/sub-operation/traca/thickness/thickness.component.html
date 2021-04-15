@@ -15,7 +15,7 @@
                 <td>{{traca.NOMINAL}}</td>
                 <td>
                     <mat-form-field>
-                        <input matInput placeholder=" label" value="value">
+                        <input matInput placeholder="valeur" value="" (change)=newMeasureAction() #inputThicknessValue>
                     </mat-form-field>
                 </td>
             </tr>

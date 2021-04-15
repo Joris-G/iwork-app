@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import * as Chart from 'chart.js';
 import { ChartDataSets, ChartOptions } from 'chart.js';
 import { Color, Label } from 'ng2-charts';
@@ -8,7 +8,7 @@ import { Color, Label } from 'ng2-charts';
   templateUrl: './control-card.component.html',
   styleUrls: ['./control-card.component.css']
 })
-export class ControlCardComponent implements OnInit {
+export class ControlCardComponent implements OnInit, OnChanges {
 
   _previousDatas: any = [];
 
@@ -44,6 +44,7 @@ export class ControlCardComponent implements OnInit {
             fill: false,
             borderColor: 'deeppink',
             pointBorderWidth: 5,
+
           },
           {
             data: tolMax,
@@ -61,30 +62,37 @@ export class ControlCardComponent implements OnInit {
       },
       options: {
         scales: {
+          scaleLabel: {
+            display: true,
+          },
           yAxes: [{
             ticks: {
               fontColor: 'rgb(255,255,255)',
               // beginAtZero: true,
-              suggestedMin: Math.min.apply(null, points)
+              suggestedMin: Math.min.apply(null, points),
             },
             gridLines: {
               color: 'rgb(255,255,255)',
             },
             scaleLabel: {
               fontColor: 'rgb(255,255,255)',
+              labelString: 'épaisseur ( en mm )',
               display: true,
-            }
+              fontSize: 18,
+            },
           }],
           xAxes: [{
             ticks: {
-              fontColor: 'black',
+              fontColor: 'rgb(255,255,255)',
             },
             gridLines: {
-              color: 'black',
+              color: 'rgb(255,255,255)',
             },
             scaleLabel: {
-              fontColor: 'black',
+              fontColor: 'rgb(255,255,255)',
+              labelString: "numéro d'OF",
               display: true,
+              fontSize: 18,
             }
           }]
         },
@@ -99,6 +107,12 @@ export class ControlCardComponent implements OnInit {
 
 
   constructor() { }
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes.previousDatas) {
+      console.log('object');
+      this.previousDatas = changes.previousDatas.currentValue;
+    }
+  }
 
   ngOnInit(): void {
 

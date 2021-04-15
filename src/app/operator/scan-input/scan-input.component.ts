@@ -1,4 +1,5 @@
 import { Component, ElementRef, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
+import { Error } from '@app/_interfaces/error';
 import { ProdProcessServiceService } from 'src/app/service/prod-process-service.service';
 
 @Component({
@@ -11,6 +12,12 @@ export class ScanInputComponent implements OnInit {
   @Output() scanInput = new EventEmitter<any>();
   focusTool: any;
   @ViewChild('inputOf') inputOf: ElementRef;
+  error: Error = {
+    state: false,
+    msg: ""
+  };
+
+
   constructor(private prodProcessService: ProdProcessServiceService) { }
 
   ngOnInit(): void {
@@ -23,14 +30,25 @@ export class ScanInputComponent implements OnInit {
   sendScanInput(inputText: any) {
     if (inputText.value.startsWith('OF', 0)) {
       const inputDataScan = inputText.value.slice(3).split(',');
-      const techData = {
-        refSap: inputDataScan[0],
-        of: inputDataScan[1]
+      if (inputDataScan.length > 1) {
+        const techData = {
+          refSap: inputDataScan[0],
+          of: inputDataScan[1]
+        }
+        this.scanInput.emit(this.prodProcessService.getAllTraca(techData.refSap, techData.of));
+      } else {
+        this.error = {
+          state: true,
+          msg: "Les données de l'OF ne sont pas valides"
+        };
+        console.error("Les données de l'OF ne sont pas valides. Vérifier que l'OF est connu du gestionnaire");
       }
-      this.scanInput.emit(this.prodProcessService.getAllTraca(techData.refSap, techData.of));
     } else {
+      this.error = {
+        state: true,
+        msg: "Ce n'est pas un OF valide"
+      };
       console.error("C'est n'est pas un OF");
-
     }
     // this.scanInput.emit(inputText.value);
   }

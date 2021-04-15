@@ -7,6 +7,7 @@ import { HomeComponent } from './home/home.component';
 import { PreparateurComponent } from './preparateur/preparateur.component';
 import { GestionnaireComponent } from './gestionnaire/gestionnaire.component';
 import { StickersComponent } from './shared/print/stickers/stickers.component';
+import { DefaultComponent } from './modules/default/default.component';
 
 // const routes: Routes = [
 //   { path: 'app-operator', component: OperatorComponent },
@@ -16,10 +17,17 @@ import { StickersComponent } from './shared/print/stickers/stickers.component';
 // ];
 
 const routes: Routes = [
-  { path: '', component: HomeComponent },
-  { path: 'app-operator', component: OperatorComponent },
-  { path: 'app-preparateur', component: PreparateurComponent },
-  { path: 'app-gestionnaire', component: GestionnaireComponent },
+  {
+    path: '',
+    component: DefaultComponent,
+    children: [
+      { path: '', component: HomeComponent },
+      { path: 'app-operator', component: OperatorComponent },
+      { path: 'app-preparateur', component: PreparateurComponent },
+      { path: 'app-gestionnaire', component: GestionnaireComponent },
+    ]
+  },
+
   { path: 'app-login', component: LoginComponent },
   { path: 'app-stickers', component: StickersComponent },
   { path: '**', redirectTo: '' }

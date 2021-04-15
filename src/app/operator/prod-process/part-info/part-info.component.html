@@ -5,11 +5,18 @@
             <mat-icon>info_outlined</mat-icon>
         </button>
     </div>
+    <div class="info">
+        <div class="article "><span>Article SAP</span><span>{{prodProcess.ARTICLE.ARTICLE_SAP}}</span></div>
 
-    <p>Article SAP : {{prodProcess.ARTICLE.ARTICLE_SAP}}</p>
-    <p>Désignation : {{prodProcess.ARTICLE.DESIGNATION}}</p>
-    <p>Indice Process : {{prodProcess.process.INDICE_PROCESS}}</p>
-    <p>Numéro d'OF : {{prodProcess.ORDRE_FABRICATION}}</p>
-    <p *ngIf="prodProcess.PRENOM_PIECE">Nom de la pièce : {{prodProcess.PRENOM_PIECE}}</p>
+        <div class="des"><span>Désignation</span><span>{{prodProcess.ARTICLE.DESIGNATION}}</span></div>
 
+        <div class="revision"><span>Indice Process</span><span>{{prodProcess.process.INDICE_PROCESS}}</span></div>
+
+        <div class="workorder"><span>Numéro d'OF</span><span>{{prodProcess.prodProcess.ORDRE_FABRICATION}}</span></div>
+
+        <div class="name">
+            <span *ngIf="prodProcess.PRENOM_PIECE">Nom de la pièce</span><span>{{prodProcess.PRENOM_PIECE}}</span>
+        </div>
+
+    </div>
 </div>

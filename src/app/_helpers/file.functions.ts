@@ -16,7 +16,7 @@ export class FileFunction {
                 reader.addEventListener('load', (e) => {
                     let csvdata: any = e.target.result;
                     console.log(csvdata);
-                    resolve(this.getParsecsvdata(csvdata)); // calling function for parse csv data 
+                    resolve(this.getParsecsvdata(csvdata));
                 });
                 reader.readAsBinaryString(myFile);
             }
@@ -27,8 +27,9 @@ export class FileFunction {
     private getParsecsvdata(csvData: any): any {
         let parsedata = [];
         let newLinebrk = csvData.split("\n");
-        for (let i = 0; i < newLinebrk.length; i++) {
-            parsedata.push(newLinebrk[i].split(";"))
+        for (let i = 1; i < newLinebrk.length; i++) {
+            parsedata.push(newLinebrk[i].split(";"));
+            console.log(newLinebrk[i].split(";"));
         }
         console.table(parsedata);
         return parsedata;
