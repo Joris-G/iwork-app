@@ -10,7 +10,6 @@ export class GestionnaireComponent implements OnInit, OnChanges {
   selectedItem: any;
   constructor() { }
   ngOnChanges(changes: SimpleChanges): void {
-    console.log(changes);
   }
 
   ngOnInit(): void {

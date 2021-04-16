@@ -11,31 +11,30 @@ import { MaterialService } from 'src/app/service/material.service';
 })
 export class ProdProcessComponent implements OnInit, OnChanges {
 
-  prodProcess: any;
   currentOperation: any;
   currentSubOperation: any;
-  @Input() scanInput: any;
+  @Input() process: any;
   @Input() lastOpe: any;
 
   constructor(private materialService: MaterialService, private prodProcessService: ProdProcessServiceService, private tracaService: TracaService) { }
 
   ngOnInit(): void {
-    this.prodProcess = this.scanInput;
-    console.log(this.lastOpe);
-    console.log(this.prodProcess);
-    this.currentOperation = this.lastOpe.opSAP;
-    this.currentSubOperation = this.lastOpe.opeDet;
   }
 
   ngOnChanges(changes: SimpleChanges): void {
     console.log(changes);
+    this.currentOperation = changes.lastOpe.currentValue.opSAP;
+    this.currentSubOperation = changes.lastOpe.currentValue.opeDet;
+
     this.prodProcessService.process.subscribe(currentObject => {
       console.log(currentObject);
-      console.log(this.prodProcess);
-      this.tracaService.launchOperation(changes.lastOpe.currentValue.opSAP, currentObject.prodProcess.ID_PROD_PROCESS);
+      this.tracaService.launchOperation(changes.lastOpe.currentValue.opSAP, currentObject.process.prodProcess)
     });
+  }
 
-    this.ngOnInit();
+
+  upDateStep(event) {
+    console.log(event);
   }
 
   showOperation(operation: any) {

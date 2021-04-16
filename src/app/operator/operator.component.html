@@ -1,5 +1,5 @@
 <div class="operator-container">
     <app-scan-input (scanInput)="getScanedInput($event)" *ngIf="!process"></app-scan-input>
     <!-- <app-prod-process *ngIf="lastOpe" [scanInput]="process" [lastOpe]="lastOpe"></app-prod-process> -->
-    <app-prod-process *ngIf="process" [scanInput]="process" [lastOpe]="lastOpe"></app-prod-process>
+    <app-prod-process *ngIf="process" [process]="process" [lastOpe]="lastOpe"></app-prod-process>
 </div>

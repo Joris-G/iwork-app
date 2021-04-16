@@ -14,6 +14,7 @@ export class SubOpeGroupComponent implements OnInit {
   @Input() prodProcessSubOpe: any;
   subOpeProdStatus: any;
   subOpeTracaStatus: any;
+  @Input() active: boolean;
   constructor(private prodProcessServiceService: ProdProcessServiceService) { }
 
   ngOnInit(): void {

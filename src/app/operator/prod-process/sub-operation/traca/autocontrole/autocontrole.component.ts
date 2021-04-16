@@ -21,18 +21,20 @@ export class AutocontroleComponent implements OnInit {
   ngOnInit(): void {
     this.controlToolService.getControlToolList().subscribe((response: any) => {
       this.toolList = response;
+      console.log(this.tracas);
+      const prodTraca = "No comment"
       this.tracas.forEach((traca: any) => {
-        this.addControl(traca);
+        this.addControl(traca, prodTraca);
       });
     });
   }
 
-  addControl(traca: any) {
+  addControl(traca: any, prodTraca: any) {
     this.tracasArray.push(new FormControl({
       idTraca: traca.ID_TRACA,
       idTracaControl: traca.ID_TRACA_CONTROLE,
       sanction: 0,
-      comment: traca.PROD_TRACA.COMMENTAIRE == 'undefined' ? "pas de commentaire" : traca.PROD_TRACA.COMMENTAIRE,
+      comment: prodTraca == 'undefined' ? "pas de commentaire" : traca.prodTraca,
       text: traca.TEXTE_TRACA,
       ECME: traca.ID_TYPE_ECME,
       designationECME: this.getTool(traca.ID_TYPE_ECME),

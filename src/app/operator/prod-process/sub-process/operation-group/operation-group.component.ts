@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges } from '@angular/core';
 import { TracaService } from '@app/service/traca.service';
 
 @Component({
@@ -6,12 +6,17 @@ import { TracaService } from '@app/service/traca.service';
   templateUrl: './operation-group.component.html',
   styleUrls: ['./operation-group.component.css']
 })
-export class OperationGroupComponent implements OnInit, OnDestroy {
+export class OperationGroupComponent implements OnInit, OnDestroy, OnChanges {
   @Input() opeGroup: any;
   @Output() currentSubOperation: any = new EventEmitter<any>();
+  @Input() currentSubOpe: any;
   @Input() prodOperation: any;
   prodSubOperations: any;
+
   constructor(private tracaService: TracaService) { }
+  ngOnChanges(changes: SimpleChanges): void {
+    console.log(changes);
+  }
   ngOnDestroy(): void {
     this.tracaService.stopOperationTimer(this.prodOperation);
   }
@@ -20,6 +25,17 @@ export class OperationGroupComponent implements OnInit, OnDestroy {
     console.log(this.prodOperation);
     (this.prodOperation) ? this.prodSubOperations = this.prodOperation.subOperations : this.prodSubOperations = false;
   }
+
+  isActive(subOpeToTest: any): boolean {
+    console.log(this.currentSubOpe, subOpeToTest.ID_OPERATION_DETAILLEE);
+    if (this.currentSubOpe.ID_OPERATION_DETAILLEE == subOpeToTest.ID_OPERATION_DETAILLEE) {
+      console.log(true);
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   toggleGroupVisibility(opeGroup: any, eventTarget: Node) {
     if (eventTarget.textContent == 'expand_more') {
       eventTarget.textContent = 'expand_less';
@@ -48,8 +64,9 @@ export class OperationGroupComponent implements OnInit, OnDestroy {
   }
 
   emitClickedSubOperation(subOperation: any) {
+    (subOperation == this.currentSubOperation) ? '' : this.currentSubOperation.emit(subOperation);
     console.log('emit currentSubOpe', subOperation);
-    this.currentSubOperation.emit(subOperation);
+
   }
 
   toggleSubOperationState(eventTarget: HTMLElement) {

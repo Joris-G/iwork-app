@@ -2,6 +2,7 @@ import { AfterContentInit, Component, ComponentFactoryResolver, Input, OnChanges
 import { AlertService } from '@app/service/alert.service';
 import { AlertComponent } from '@app/alert/alert.component';
 import { Alert } from '@app/_interfaces/alert';
+import { ProdProcessServiceService } from '@app/service/prod-process-service.service';
 
 @Component({
   selector: 'app-traca',
@@ -17,13 +18,24 @@ export class TracaComponent implements OnInit, AfterContentInit, OnChanges {
 
   @Input() tracaInput: any;
   role: any;
+  prodProcess: any;
+
+
+
+
+  @Input() prodTracaStep: any;
+  @Input() processTracaStep: any;
+
 
   constructor(private alertService: AlertService,
-    private componentFactoryResolver: ComponentFactoryResolver) {
+    private componentFactoryResolver: ComponentFactoryResolver, private prodProcessService: ProdProcessServiceService) {
 
   }
   ngOnChanges(changes: SimpleChanges): void {
     console.log(changes);
+    this.prodProcessService.process.subscribe(res => {
+      this.prodProcess = res.prodProcess;
+    })
   }
 
   ngAfterContentInit(): void {
@@ -38,6 +50,9 @@ export class TracaComponent implements OnInit, AfterContentInit, OnChanges {
     if (this.tracaList.PROD_TRACA_DETAILS) {
       this.enable = false;
     }
+    console.log(['Voici les inputs du composant traca: ',
+      this.prodTracaStep,
+      this.processTracaStep]);
     // this.alertService.observable.subscribe(event => {
     //   this.loadNewAlertComponent(event);
     // });

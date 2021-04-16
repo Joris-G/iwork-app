@@ -12,10 +12,12 @@
 
         <div class="revision"><span>Indice Process</span><span>{{prodProcess.process.INDICE_PROCESS}}</span></div>
 
-        <div class="workorder"><span>Numéro d'OF</span><span>{{prodProcess.prodProcess.ORDRE_FABRICATION}}</span></div>
+        <div class="workorder"><span>Numéro
+                d'OF</span><span>{{prodProcess.process.prodProcess.ORDRE_FABRICATION}}</span></div>
 
         <div class="name">
-            <span *ngIf="prodProcess.PRENOM_PIECE">Nom de la pièce</span><span>{{prodProcess.PRENOM_PIECE}}</span>
+            <span *ngIf="prodProcess.PRENOM_PIECE">Nom de la
+                pièce</span><span>{{prodProcess.process.prodProcess.PRENOM_PIECE}}</span>
         </div>
 
     </div>

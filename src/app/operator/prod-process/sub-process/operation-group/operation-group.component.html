@@ -5,6 +5,7 @@
 </div>
 <div class="subOpGroup" *ngFor="let subOperation of opeGroup.OPERATIONS_DETAILLEES">
     <app-sub-ope-group id="id-{{opeGroup.ID_GROUP}}" (click)="subOperationclickEvent(subOperation,$event)"
-        [subOperation]="subOperation" [prodProcessSubOpe]="prodSubOperations" *ngIf="subOperation.STEPS">
+        [subOperation]="subOperation" [prodProcessSubOpe]="prodSubOperations" *ngIf="subOperation.STEPS"
+        [active]="isActive(subOperation)">
     </app-sub-ope-group>
 </div>

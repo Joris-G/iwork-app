@@ -1,14 +1,17 @@
 <div class="prod-process-component">
-    <div class="col1" *ngIf="scanInput">
-        <app-part-info class="part-info" [prodProcess]="scanInput"></app-part-info>
+    <div class="col1" *ngIf="process">
+        <app-part-info class="part-info" [prodProcess]="process"></app-part-info>
         <div class="process-nav">
-            <app-flow class="flow" [prodProcess]="scanInput" (currentOperation)="showOperation($event)"></app-flow>
-            <app-sub-process class="sub-process" [prodProcess]="scanInput" [operation]="currentOperation"
-                (currentSubOperation)="showSubOperation($event)" *ngIf="currentOperation"></app-sub-process>
+            <app-flow class="flow" [prodProcess]="process" (currentOperation)="showOperation($event)"></app-flow>
+            <app-sub-process class="sub-process" [prodProcess]="process" [operation]="currentOperation"
+                [subOpe]="currentSubOperation" (currentSubOperation)="showSubOperation($event)"
+                *ngIf="currentOperation"></app-sub-process>
         </div>
     </div>
     <div class="col2">
-        <app-sub-operation class="sub-operation" [subOperation]="currentSubOperation" *ngIf="currentSubOperation">
+        <app-sub-operation class="sub-operation" [currentSubOperation]="currentSubOperation"
+            (nextStepEmitter)="upDateStep($event)" [currentOperation]="currentOperation" *ngIf="currentSubOperation"
+            [process]="process">
         </app-sub-operation>
     </div>
 
