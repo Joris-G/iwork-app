@@ -1,4 +1,8 @@
-<app-operation-group ([currentSubOperation])="showOp($event)" (currentSubOperation)="showOp($event)"
+<app-operation-group (currentSubOperation)="showOp($event)" [currentSubOpe]="subOpe"
+    *ngFor="let opeGroup of operation.OPERATION_GROUP" [opeGroup]="opeGroup" [prodOperation]="prodOperation">
+</app-operation-group>
+
+<!-- <app-operation-group ([currentSubOperation])="showOp($event)" (currentSubOperation)="showOp($event)"
     [currentSubOpe]="subOpe" *ngFor="let opeGroup of operation.OPERATION_GROUP" [opeGroup]="opeGroup"
     [prodOperation]="prodOperation">
-</app-operation-group>
+</app-operation-group> -->

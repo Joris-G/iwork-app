@@ -23,18 +23,31 @@ export class ProdProcessComponent implements OnInit, OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     console.log(changes);
-    this.currentOperation = changes.lastOpe.currentValue.opSAP;
-    this.currentSubOperation = changes.lastOpe.currentValue.opeDet;
+    if (changes.lastOpe.previousValue != changes.lastOpe.currentValue) {
+      this.prodProcessService.process.subscribe(currentObject => {
+        console.log("c'est ici qu'on a lancé l'OP");
+        console.log(changes.lastOpe.currentValue.opSAP, currentObject.process.prodProcess);
 
-    this.prodProcessService.process.subscribe(currentObject => {
-      console.log(currentObject);
-      this.tracaService.launchOperation(changes.lastOpe.currentValue.opSAP, currentObject.process.prodProcess)
-    });
+        if (!changes.lastOpe.currentValue.opSAP.prodOperation) {
+          this.tracaService.launchOperation(changes.lastOpe.currentValue.opSAP, currentObject.process.prodProcess).subscribe(res => {
+            this.currentOperation = changes.lastOpe.currentValue.opSAP;
+            this.currentSubOperation = changes.lastOpe.currentValue.opeDet;
+            this.currentOperation.prodOperation = res;
+          });
+        } else {
+          this.currentOperation = changes.lastOpe.currentValue.opSAP;
+          this.currentSubOperation = changes.lastOpe.currentValue.opeDet;
+        }
+      });
+    }
+
+
+
+
   }
 
 
   upDateStep(event) {
-    console.log(event);
   }
 
   showOperation(operation: any) {

@@ -1,5 +1,5 @@
-<!-- <div [formGroup]="tracaGroup">
-    <div formArrayName="tracasList"> -->
+<!-- <div [formGroup]="tracaGroup"> -->
+<!-- <div formArrayName="tracasList"> -->
 <!-- <img src="assets/img/shield.svg" alt="Image bouclier qualité"> -->
 <div class="tracaList">
     <div class="traca" *ngFor="let traca of tracasArray.controls;index as i">
@@ -18,6 +18,6 @@
         <input type="text" class="comm" *ngIf="traca.value.sanction==0" value="{{traca.value.comment}}" />
     </div>
 </div>
-<button mat-raised-button (click)="recordTraca(tracasArray.value)" disabled="!enableTraca">CONFIMER</button>
-<!-- </div>
-</div> -->
+<button mat-raised-button (click)="recordTraca(tracasArray.value)" [disabled]="tracas.prodTraca">CONFIMER</button>
+<!-- </div> -->
+<!-- </div> -->

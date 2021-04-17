@@ -30,9 +30,9 @@ export class EditTracaComponent implements OnInit {
     })
   }
   tracaTypeSelect(event: any) {
-    console.log(event);
+    //console.log(event);
   }
   saveNewTraca() {
-    console.log(this.tracaType);
+    //console.log(this.tracaType);
   }
 }

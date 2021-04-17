@@ -92,7 +92,6 @@ export class MaterialComponent implements OnInit, OnChanges {
         }
       },
         error => {
-          console.log(error);
         });
     } else {
       console.error("Ce n'est pas une matière connue dans l'application");

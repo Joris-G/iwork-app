@@ -17,9 +17,9 @@ export class ProcessComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    console.log(this.process);
+    //console.log(this.process);
     document.onmouseover = (event) => {
-      // console.log(event.target);
+      // //console.log(event.target);
     }
   }
   operationAction(operation: any) {

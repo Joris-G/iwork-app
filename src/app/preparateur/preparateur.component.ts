@@ -22,7 +22,7 @@ export class PreparateurComponent implements OnInit, OnChanges, AfterViewInit {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    console.log(changes);
+    //console.log(changes);
   }
 
   ngOnInit(): void {
@@ -31,7 +31,7 @@ export class PreparateurComponent implements OnInit, OnChanges, AfterViewInit {
 
 
   rowProcessClickAction(row: any) {
-    console.log(row);
+    //console.log(row);
     this.showProcess(row.idProcess);
   }
   showProcess(idProcess: string) {
@@ -45,14 +45,14 @@ export class PreparateurComponent implements OnInit, OnChanges, AfterViewInit {
     this.processService.getAllProcesses(article).subscribe((res: any) => {
       this.displayProcessList = true;
       this.allProcess = res
-      console.log(res);
+      //console.log(res);
       const data = []
       res.forEach(process => {
         data.push({ idProcess: process.ID_PROCESS, version: process.INDICE_PROCESS, creationDate: process.DATE_DE_CREATION, creator: process.UTILISATEUR_CREATION, startService: '07/04/2021' });
       });
 
       this.dataSource = new MatTableDataSource<any>(data);
-      console.log(this.dataSource);
+      //console.log(this.dataSource);
 
     })
   }

@@ -32,9 +32,8 @@
                 <div class="step-contener">
                     <app-instruction class="subOperation-instruction" [instruction]="step.INSTRUCTION">
                     </app-instruction>
-                    <app-traca class="subOperation-traca" [tracaInput]="inputMat" [subOperation]="subOperation"
-                        [tracaList]="step.TRACA" *ngIf="step.TRACA" [prodTracaStep]="prodTracaStep"
-                        [processTracaStep]="processTracaStep"></app-traca>
+                    <app-traca class="subOperation-traca" [tracaInput]="inputMat" [step]="step" [tracaList]="step.TRACA"
+                        [currentStep]="currentStep" *ngIf="step.TRACA"></app-traca>
                 </div>
             </mat-tab>
         </mat-tab-group>

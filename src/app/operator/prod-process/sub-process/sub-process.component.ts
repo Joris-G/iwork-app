@@ -18,12 +18,11 @@ export class SubProcessComponent implements OnInit, OnChanges {
   constructor(private tracaService: TracaService) { }
 
   ngOnChanges(changes: SimpleChanges): void {
-    console.log(changes, this.prodProcess, this.operation);
     // if (this.prodOperation) {
     //   // this.tracaService.continueOperation(this.prodOperation,).subscribe((response: any) => {
     //   //   });
     // } else {
-    //   console.log('launch');
+    //   //console.log('launch');
     //   this.tracaService.launchOperation(this.operation, this.prodProcess.prodProcess).subscribe((response: any) => {
     //   });
     // }
@@ -34,7 +33,6 @@ export class SubProcessComponent implements OnInit, OnChanges {
   }
 
   showOp(item: any) {
-    console.log(item);
     this.currentSubOperation.emit(item);
   }
 

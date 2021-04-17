@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { ProdProcessServiceService } from '@app/service/prod-process-service.service';
 import { Observable, Subscriber } from 'rxjs';
 
@@ -7,7 +7,7 @@ import { Observable, Subscriber } from 'rxjs';
   templateUrl: './sub-ope-group.component.html',
   styleUrls: ['./sub-ope-group.component.css']
 })
-export class SubOpeGroupComponent implements OnInit {
+export class SubOpeGroupComponent implements OnInit, OnChanges {
   isTraca: boolean;
   tracaStatus: string;
   @Input() subOperation: any;
@@ -16,10 +16,11 @@ export class SubOpeGroupComponent implements OnInit {
   subOpeTracaStatus: any;
   @Input() active: boolean;
   constructor(private prodProcessServiceService: ProdProcessServiceService) { }
+  ngOnChanges(changes: SimpleChanges): void {
+  }
 
   ngOnInit(): void {
-    console.log(this.prodProcessSubOpe);
-    (this.prodProcessSubOpe) ? this.subOpeProdStatus = this.prodProcessSubOpe.STATUS : this.subOpeProdStatus = false;
+    (this.subOperation.prodSubOperation.DATE_FIN) ? this.subOpeProdStatus = '1' : this.subOpeProdStatus = '4';
     this.isAnyTraca();
     if (this.isTraca) {
       this.getTracaStatus();

@@ -12,7 +12,6 @@ export class HomeComponent implements OnInit {
   constructor(private router: Router, private authenticationService: AuthenticationService) { }
 
   ngOnInit(): void {
-    console.log('vous êtes sur le composant home. Vous êtes redirigé vers la page préférée.');
     this.authenticationService.currentUser.subscribe((res: any) => {
       switch (res.ROLE) {
         case '3':
@@ -26,7 +25,6 @@ export class HomeComponent implements OnInit {
           break;
         default:
           this.router.navigate(['/app-operator']);
-          console.log('default page');
           break;
       }
     });

@@ -32,38 +32,30 @@ export class OperatorComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
-    console.log('init');
   }
 
   getScanedInput(input: Observable<any>) {
-    input.subscribe(res => {
-      this.process = res;
-      console.log(res);
-      console.log(res.process.prodProcess.DATE_DEBUT);
-      if (res.process.prodProcess.DATE_DEBUT == null) {
+    input.subscribe(resInput => {
+      this.process = resInput;
+      if (resInput.process.prodProcess.DATE_DEBUT == null) {
         //Débuter le process et la première opération
-        this.tracaService.launchOperation(res.process.LISTE_OPERATIONS[0], res.process.prodProcess).subscribe(res => {
-          console.log(res);
+        console.log("c'est ici qu'on a lancé l'OP");
+        this.tracaService.launchOperation(resInput.process.LISTE_OPERATIONS[0], resInput.process.prodProcess).subscribe(res => {
+          resInput.process.LISTE_OPERATIONS[0].prodOperation = res;
+          this.lastOpe = {
+            opSAP: resInput.process.LISTE_OPERATIONS[0],
+            groupOpe: resInput.process.LISTE_OPERATIONS[0]['OPERATION_GROUP'][0],
+            opeDet: resInput.process.LISTE_OPERATIONS[0]['OPERATION_GROUP'][0]['OPERATIONS_DETAILLEES'][0]
+          }
+
         });
-        console.log("Je défini la dernière OP sur la première OP");
-        this.lastOpe = {
-          opSAP: res.process.LISTE_OPERATIONS[0],
-          groupOpe: res.process.LISTE_OPERATIONS[0]['OPERATION_GROUP'][0],
-          opeDet: res.process.LISTE_OPERATIONS[0]['OPERATION_GROUP'][0]['OPERATIONS_DETAILLEES'][0]
-        }
-        console.log(this.lastOpe);
       } else {
-        console.log("Je défini la dernière op non réalisée");
-        for (const operation of res.process.LISTE_OPERATIONS) {
-          console.log(1);
+        for (const operation of resInput.process.LISTE_OPERATIONS) {
           if (this.lastOpe) break;
           for (const groupOpe of operation.OPERATION_GROUP) {
-            console.log(2);
             if (this.lastOpe) break;
             for (const opeDet of groupOpe.OPERATIONS_DETAILLEES) {
-              console.log(3);
               if (this.lastOpe) break;
-              console.log(opeDet.prodSubOperation.DATE_FIN);
               if (opeDet.prodSubOperation.DATE_FIN == null) {
                 this.lastOpe = {
                   opSAP: operation,
@@ -76,6 +68,7 @@ export class OperatorComponent implements OnInit, AfterViewInit {
           };
         }
       }
+
     });
   }
 }

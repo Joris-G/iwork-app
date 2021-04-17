@@ -36,7 +36,7 @@ export class StickersComponent implements OnInit {
   ngOnInit(): void {
     this.stickersNewDatas.forEach(data => {
       data.datas.forEach(element => {
-        console.log(element);
+        //console.log(element);
       });
     });
   }

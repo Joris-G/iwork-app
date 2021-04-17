@@ -109,7 +109,6 @@ export class ControlCardComponent implements OnInit, OnChanges {
   constructor() { }
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.previousDatas) {
-      console.log('object');
       this.previousDatas = changes.previousDatas.currentValue;
     }
   }

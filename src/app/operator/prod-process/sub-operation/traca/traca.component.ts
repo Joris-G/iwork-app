@@ -11,10 +11,11 @@ import { ProdProcessServiceService } from '@app/service/prod-process-service.ser
 })
 export class TracaComponent implements OnInit, AfterContentInit, OnChanges {
   @Input() tracaList: any;
-  @Input() subOperation: any;
+  @Input() step: any;
+  @Input() currentStep: any;
   @ViewChild('alertContainer', { read: ViewContainerRef }) alertContainer: ViewContainerRef;
   alertList = new Array(0);
-  enable = true;
+  enable: boolean = true;
 
   @Input() tracaInput: any;
   role: any;
@@ -32,7 +33,6 @@ export class TracaComponent implements OnInit, AfterContentInit, OnChanges {
 
   }
   ngOnChanges(changes: SimpleChanges): void {
-    console.log(changes);
     this.prodProcessService.process.subscribe(res => {
       this.prodProcess = res.prodProcess;
     })
@@ -45,14 +45,11 @@ export class TracaComponent implements OnInit, AfterContentInit, OnChanges {
   }
 
   ngOnInit(): void {
-    console.log(this.tracaList);
     this.role = this.tracaList.ROLE;
-    if (this.tracaList.PROD_TRACA_DETAILS) {
-      this.enable = false;
-    }
-    console.log(['Voici les inputs du composant traca: ',
-      this.prodTracaStep,
-      this.processTracaStep]);
+    // if (!this.tracaList.prodTraca) {
+    //   this.enable = true;
+    // }
+
     // this.alertService.observable.subscribe(event => {
     //   this.loadNewAlertComponent(event);
     // });
@@ -63,8 +60,8 @@ export class TracaComponent implements OnInit, AfterContentInit, OnChanges {
   // }
   // createComponent(alertComponent: Type<AlertComponent>) {
   //   const componentFactory = this.componentFactoryResolver.resolveComponentFactory(alertComponent);
-  //   console.log(componentFactory);
-  //   console.log(this.alertContainer, alertComponent);
+  //   //console.log(componentFactory);
+  //   //console.log(this.alertContainer, alertComponent);
   //   return this.alertContainer.createComponent(componentFactory);
   // }
 

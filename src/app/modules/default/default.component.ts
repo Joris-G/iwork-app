@@ -10,7 +10,6 @@ export class DefaultComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    console.log('vous êtes sur le composant par défaut');
   }
 
 }

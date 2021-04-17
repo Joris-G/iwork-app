@@ -36,7 +36,6 @@ export class ThicknessComponent implements OnInit {
     this.getSelectedPointPreviousDatas(event.ID_TRACA_MESURE)
   }
   newMeasureAction() {
-    console.log(this.inputThicknessValue);
     this.selectedPreviousDatas.push({ mesure: this.inputThicknessValue, part: 'NewOF' });
   }
 }

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { ControlToolService } from 'src/app/service/control-tool.service';
 import { TracaService } from 'src/app/service/traca.service';
@@ -10,9 +10,9 @@ import { TracaService } from 'src/app/service/traca.service';
 })
 export class AutocontroleComponent implements OnInit {
   @Input() tracas: any;
-  @Input() subOperation: any;
+  @Input() step: any;
   @Input() enableTraca: boolean;
-
+  @Input() currentStep: any;
   tracasArray = new FormArray([]);
   toolList: any;
 
@@ -21,20 +21,23 @@ export class AutocontroleComponent implements OnInit {
   ngOnInit(): void {
     this.controlToolService.getControlToolList().subscribe((response: any) => {
       this.toolList = response;
-      console.log(this.tracas);
       const prodTraca = "No comment"
       this.tracas.forEach((traca: any) => {
-        this.addControl(traca, prodTraca);
+        this.addControl(traca);
       });
     });
   }
 
-  addControl(traca: any, prodTraca: any) {
+  getState(): boolean {
+    return this.enableTraca;
+  }
+
+  addControl(traca: any) {
     this.tracasArray.push(new FormControl({
       idTraca: traca.ID_TRACA,
       idTracaControl: traca.ID_TRACA_CONTROLE,
-      sanction: 0,
-      comment: prodTraca == 'undefined' ? "pas de commentaire" : traca.prodTraca,
+      sanction: traca.prodTracaDetail.SANCTION,
+      comment: (traca.prodTracaDetail) ? traca.prodTracaDetail.COMMENTAIRE : "pas de commentaire",
       text: traca.TEXTE_TRACA,
       ECME: traca.ID_TYPE_ECME,
       designationECME: this.getTool(traca.ID_TYPE_ECME),
@@ -69,7 +72,7 @@ export class AutocontroleComponent implements OnInit {
 
   recordTraca(tracas: any) {
     tracas.forEach((traca: any) => {
-      this.tracaService.saveTracaControl(traca, this.subOperation).subscribe((response: any) => {
+      this.tracaService.saveTracaControl(traca, this.currentStep).subscribe((response: any) => {
       })
     });
 

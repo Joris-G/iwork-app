@@ -24,19 +24,19 @@ export class SubOpeComponent implements OnInit {
   editSubOpeAction() {
     // Si je suis en mode editer
     if (this.editSubOpName) {
-      console.log("J'étais en mode édition");
+      //console.log("J'étais en mode édition");
       // Si la valeur a changer
       if (this.subOpe.DESCRIPTION_OPERATION != this.inputSubOpName.nativeElement.value) {
-        console.log("Le nom a changé");
+        //console.log("Le nom a changé");
         this.subOpe.DESCRIPTION_OPERATION = this.inputSubOpName.nativeElement.value;
         this.processService.modifySubOperationName(this.subOpe.ID_OPERATION, this.inputSubOpName.nativeElement.value).subscribe((res: any) => {
 
         });
       } else {
-        console.log("Le nom n'a pas changé");
+        //console.log("Le nom n'a pas changé");
       }
     }
-    console.log('switch mode');
+    //console.log('switch mode');
     this.editSubOpName = !this.editSubOpName;
   }
 

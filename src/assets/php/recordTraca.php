@@ -1,16 +1,16 @@
 <?php
 require 'Connexion.php';
 $con = new Connexion();
-$sql = "INSERT INTO t_prod_traca (ID_PROD_SUBOP, ID_TRACA, DATE_TRACA, `SANCTION`) 
-VALUES (:idProdSubOp, :idTraca, NOW(), :sanction)";
+$sql = "INSERT INTO t_prod_traca (ID_PROD_STEP, ID_TRACA, DATE_TRACA, `SANCTION`) 
+VALUES (:idProdStep, :idTraca, NOW(), :sanction)";
 $query = $con->createQuery($sql, [
-    'idProdSubOp' => $_GET['idProdSubOp'],
+    'idProdStep' => $_GET['idProdStep'],
     'idTraca' => $_GET['idTraca'],
     'sanction' => $_GET['sanction']
 ]);
-$sql = "SELECT ID_PROD_TRACA FROM t_prod_traca WHERE ID_PROD_SUBOP = :idProdSubOp AND ID_TRACA = :idTraca";
+$sql = "SELECT ID_PROD_TRACA FROM t_prod_traca WHERE ID_PROD_STEP = :idProdStep AND ID_TRACA = :idTraca";
 $query = $con->createQuery($sql, [
-    'idProdSubOp' => $_GET['idProdSubOp'],
+    'idProdStep' => $_GET['idProdStep'],
     'idTraca' => $_GET['idTraca'],
 ]);
 $idProdTraca = $query->fetchColumn();

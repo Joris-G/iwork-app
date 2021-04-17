@@ -15,21 +15,17 @@ export class OperationGroupComponent implements OnInit, OnDestroy, OnChanges {
 
   constructor(private tracaService: TracaService) { }
   ngOnChanges(changes: SimpleChanges): void {
-    console.log(changes);
   }
   ngOnDestroy(): void {
     this.tracaService.stopOperationTimer(this.prodOperation);
   }
 
   ngOnInit(): void {
-    console.log(this.prodOperation);
     (this.prodOperation) ? this.prodSubOperations = this.prodOperation.subOperations : this.prodSubOperations = false;
   }
 
   isActive(subOpeToTest: any): boolean {
-    console.log(this.currentSubOpe, subOpeToTest.ID_OPERATION_DETAILLEE);
     if (this.currentSubOpe.ID_OPERATION_DETAILLEE == subOpeToTest.ID_OPERATION_DETAILLEE) {
-      console.log(true);
       return true;
     } else {
       return false;
@@ -52,20 +48,16 @@ export class OperationGroupComponent implements OnInit, OnDestroy, OnChanges {
     this.emitClickedSubOperation(subOperation);
     this.toggleSubOperationState(event.target);
     if (!this.prodSubOperations) {
-      console.log(this.prodOperation);
       this.currentSubOperation.subscribe(res => {
-        console.log(res);
       })
-      console.log(this.prodSubOperations);
       // this.tracaService.launchOperation(this.prodOperation,).subscribe((response: any) => {
       // });
     }
-    this.tracaService.initOperationTimer();
+    // this.tracaService.initOperationTimer();
   }
 
   emitClickedSubOperation(subOperation: any) {
     (subOperation == this.currentSubOperation) ? '' : this.currentSubOperation.emit(subOperation);
-    console.log('emit currentSubOpe', subOperation);
 
   }
 

@@ -36,7 +36,6 @@ export class LoginComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
-    console.log('vous êtes sur le composant login');
     this.form = this.formBuilder.group({
       username: ['', Validators.required],
       password: ['', Validators.required]
@@ -65,7 +64,6 @@ export class LoginComponent implements OnInit, AfterViewInit {
       username: this.qrcodeInput.nativeElement.value,
       password: 'Socata01',
     }
-    console.log(newUser);
     this.login(newUser)
   }
   login(user: UserAuth) {

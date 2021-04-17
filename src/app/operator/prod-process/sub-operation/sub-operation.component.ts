@@ -13,7 +13,7 @@ export class SubOperationComponent implements OnInit, AfterViewInit, OnChanges {
   inputMat: any;
   @ViewChild('inputQrCode') inputQr: ElementRef;
   focusTool: any;
-
+  prodTracaStep: any;
   currentStep: any;
 
   @Input() currentSubOperation: any;
@@ -23,48 +23,64 @@ export class SubOperationComponent implements OnInit, AfterViewInit, OnChanges {
   @Output() nextStepEmitter: EventEmitter<any> = new EventEmitter<any>();
   constructor(private tracaService: TracaService) { }
   ngOnChanges(changes: SimpleChanges): void {
+    //console.log("OnChange");
+    //console.log(changes.currentSubOperation.currentValue);
     this.defineCurrentStep(changes.currentSubOperation.currentValue.STEPS[0]);
+    this.launchSubOperation()
   }
 
   @ViewChild('MatTabGroup') tabGroup: MatTabGroup;
 
   defineCurrentStep(step) {
-    console.log('step active');
     this.currentStep = step;
   }
 
 
   activeStepEvent(event) {
-    console.log(event);
   }
 
 
   ngOnInit(): void {
-    this.currentSubOperation.STEPS.forEach(step => {
-      if (!step.prodStep) {
-        console.log('init step');
-        this.currentStep = step;
-        this.tracaService.launchStep(step, this.currentSubOperation).subscribe(res => {
-          this.currentStep.prodStep = res;
-        });
-      } else if (!step.prodStep.DATE_FIN) {
-        console.log('step continue');
-        this.currentStep = step;
-      }
+    //console.log("onInit");
+    // if (this.currentSubOperation.prodSubOperation) {
+    // } else {
+    //   this.launchSubOperation();
 
-    });
-    console.log(this.currentSubOperation.STEPS);
-    console.log(["Voici les inputs du composant subOperation", this.currentSubOperation, this.process]);
-    if (this.currentSubOperation.prodSubOperation) {
-      console.log(this.currentSubOperation);
-    } else {
-      console.log("Launch subOperation");
+    // }
+
+
+  }
+  launchSubOperation() {
+    //Si pas déjà débutée on lance la subOPE
+    if (!this.currentSubOperation.prodSubOperation) {
+      console.log("c'est ici qu'on a lancé  la subOPE!");
+      console.log(this.currentSubOperation, this.currentOperation);
       this.tracaService.launchSubOperation(this.currentSubOperation, this.currentOperation).subscribe(res => {
         this.currentSubOperation.prodSubOperation = res;
-        console.log(this.currentSubOperation);
+        const firstStep = this.currentSubOperation.STEPS[0];
+        this.currentStep = firstStep;
+        this.launchStep(firstStep);
       });
     }
+    //Sinon on cherche la première step non réalisée
+    else {
+      this.currentSubOperation.STEPS.forEach(step => {
+        //Si la step n'est pas initiée
+        if (!step.prodStep) {
+          this.launchStep(step);
+          this.currentStep = step;
+        }
+      })
+    }
   }
+
+  launchStep(step: any) {
+    this.tracaService.launchStep(step, this.currentSubOperation).subscribe(res => {
+      this.currentStep.prodStep = res;
+      //console.log("Lancement de la step");
+    });
+  }
+
 
 
 
@@ -74,7 +90,6 @@ export class SubOperationComponent implements OnInit, AfterViewInit, OnChanges {
       this.inputQr.nativeElement.focus();
     }, 300);
     document.addEventListener('click', (event) => {
-      // console.log(event.target);
       clearInterval(this.focusTool);
     })
   }
@@ -83,32 +98,23 @@ export class SubOperationComponent implements OnInit, AfterViewInit, OnChanges {
 
 
   confEvent() {
-    console.log('conf event', this.currentStep);
     this.tracaService.confStep(this.currentStep).subscribe(res => {
       const nativeStep = this.currentSubOperation.STEPS.find(nativeStep => nativeStep == this.currentStep);
-      nativeStep.prodStep.DATE_FIN = Date();
-      console.log(nativeStep.prodStep.DATE_FIN);
-      console.log('step confirmé', res);
+      nativeStep.prodStep = res;
       //Test si dernière step de la suboperation
       const lastStep = this.currentSubOperation.STEPS.slice(-1);
-      console.log(lastStep, this.currentStep.ID_STEP, lastStep[0].ID_STEP);
       if (this.currentStep.ID_STEP == lastStep[0].ID_STEP) {
         this.tracaService.confSubOperation(this.currentSubOperation).subscribe(res => {
-          console.log('subOpe confirmée', res);
           //Test si dernière subOpe dans le groupe
         });
         //Définir le nouveau groupe
       } else {
         // TROUVER le step suivant
-        console.log('On cherche dans ce tableau', this.currentSubOperation.STEPS);
-        console.log('Cet élément', this.currentStep);
         const indexCurrentStep = this.currentSubOperation.STEPS.findIndex(testStep => testStep.ID_STEP == this.currentStep.ID_STEP)
-        console.log(indexCurrentStep, indexCurrentStep + 1);
         //Definir current Step == le step suivant
         this.currentStep = this.currentSubOperation.STEPS[indexCurrentStep + 1]
         this.tabGroup.selectedIndex = (indexCurrentStep + 1);
         // this.nextStepEmitter.emit(this.currentSubOperation.STEPS[indexCurrentStep + 1]);
-        console.log('next step', this.currentSubOperation.STEPS[indexCurrentStep + 1]);
       }
     });
   }
@@ -117,24 +123,30 @@ export class SubOperationComponent implements OnInit, AfterViewInit, OnChanges {
 
 
   inputAction(eventTarget: HTMLInputElement) {
-    console.log(eventTarget.value);
+    console.log(eventTarget);
     const firstSpace = eventTarget.value.search(' ');
     const identifier = eventTarget.value.slice(0, firstSpace);
     const inputDataScan = eventTarget.value.slice(firstSpace + 1).split(',');
+    console.log(firstSpace, identifier, inputDataScan);
     const techData = {
       refSap: inputDataScan[0],
       id: inputDataScan[1]
     }
-    switch (identifier) {
-      case 'MAT':
+    if (identifier) {
+      switch (identifier) {
+        case 'MAT':
+          this.inputMat = techData;
+          break;
+        case 'OF':
+          break;
 
-        this.inputMat = techData;
-        break;
-      case 'OF':
-        break;
-
-      default:
-        break;
+        default:
+          break;
+      }
+    } else {
+      if (inputDataScan[0] == "1") {
+        this.confEvent();
+      }
     }
     eventTarget.value = "";
   }

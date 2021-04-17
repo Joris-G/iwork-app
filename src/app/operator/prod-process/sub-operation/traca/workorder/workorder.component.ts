@@ -58,7 +58,6 @@ export class WorkorderComponent implements OnInit {
   }
 
   ofAction(scanInput: HTMLInputElement) {
-    console.log(scanInput.value);
     if (scanInput.value.startsWith('OF', 0)) {
       const inputDataScan = scanInput.value.slice(3).split(',');
       const techData = {
@@ -87,7 +86,6 @@ export class WorkorderComponent implements OnInit {
           }
         },
           error => {
-            console.log(error);
           });
       } else {
         console.error("Ce n'est pas une pièce connue dans l'application");
@@ -116,7 +114,6 @@ export class WorkorderComponent implements OnInit {
   }
 
   removeOf(control: FormControl) {
-    console.log(control);
     control.value.dateExecution = "";
     control.value.recordedOf = "";
   }

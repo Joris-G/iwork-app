@@ -114,24 +114,28 @@ foreach ($operationList as $keyOperation => $operation) {
                                     # code...
                                     break;
                             }
-                            $sql = "SELECT * FROM " . $tracaTypeTable . " WHERE ID_TRACA = :idTraca";
+                            $sql = "SELECT * FROM $tracaTypeTable WHERE ID_TRACA = :idTraca";
                             $query = $con->createQuery($sql, ['idTraca' => $tracasList['ID_TRACA']]);
                             $traca = $query->fetchAll();
                             $tracasList['TRACA_DETAILS'] = $traca;
 
+                            $sql = "SELECT * FROM t_prod_traca WHERE ID_TRACA = :idTraca";
+                            $query = $con->createQuery($sql, ['idTraca' => $tracasList['ID_TRACA']]);
+                            $prodTraca = $query->fetch();
+                            //On ajoute
+                            $tracasList['prodTraca'] = $prodTraca;
+
                             //Prod TracaDetails
                             foreach ($traca as $keyTracaDet => $tracaDeta) {
-                                $sql = "SELECT * FROM $prodTracaTypeTable WHERE ID_PROD_TRACA = :idProdTraca";
-                                $query = $con->createQuery($sql, ['idProdTraca' => $tracaDeta['ID_TRACA']]);
-                                $prodTracaDetail = $query->fetchAll();
+                                // var_dump($tracaDeta, $prodTracaTypeTable);
+                                $sql = "SELECT * FROM  $prodTracaTypeTable WHERE ID_PROD_TRACA = :idProdTraca AND $idTracaParam = :idTracaControle";
+                                $query = $con->createQuery($sql, ['idProdTraca' => $prodTraca['ID_PROD_TRACA'], 'idTracaControle' => $tracaDeta[$idTracaParam]]);
+                                $prodTracaDetail = $query->fetch();
                                 //On ajoute
+
                                 $tracasList['TRACA_DETAILS'][$keyTracaDet]['prodTracaDetail'] = $prodTracaDetail;
 
-                                $sql = "SELECT * FROM t_prod_traca WHERE ID_TRACA = :idTraca";
-                                $query = $con->createQuery($sql, ['idTraca' => $tracaDeta['ID_TRACA']]);
-                                $prodTraca = $query->fetch();
-                                //On ajoute
-                                $tracasList['TRACA_DETAILS'][$keyTracaDet]['prodTraca'] = $prodTraca;
+
 
 
                                 //On charge les utilisateurs
@@ -139,7 +143,9 @@ foreach ($operationList as $keyOperation => $operation) {
                                 $query = $con->createQuery($sql, ['idProdTraca' => $tracaDeta['ID_TRACA']]);
                                 $prodTracaUser = $query->fetchAll();
                                 //On ajoute
-                                $tracasList['TRACA_DETAILS'][$keyTracaDet]['prodTraca']['users'] = $prodTracaUser;
+                                if ($prodTracaUser) {
+                                    $tracasList['TRACA_DETAILS'][$keyTracaDet]['prodTraca']['users'] = $prodTracaUser;
+                                }
                             }
                             $step['TRACA'] = $tracasList;
                         }

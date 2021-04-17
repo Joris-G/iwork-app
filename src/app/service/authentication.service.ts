@@ -22,12 +22,12 @@ export class AuthenticationService {
 
   // login(username, password) {
   login(user: UserAuth) {
-    console.log('login');
+    //console.log('login');
     return this.http.post<any>(`${environment.apiUrl}/authenticate.php`, { username: user.username, password: user.password })
       .pipe(map(user => {
         // store user details and jwt token in local storage to keep user logged in between page refreshes
         sessionStorage.setItem('currentUser', JSON.stringify(user));
-        console.log('user stored');
+        //console.log('user stored');
         this.currentUserSubject.next(user);
         return user;
       }));
@@ -37,7 +37,7 @@ export class AuthenticationService {
     // remove user from local storage and set current user to null
     sessionStorage.removeItem('currentUser');
     this.currentUserSubject.next(null);
-    console.log('logout');
+    //console.log('logout');
   }
 
 }

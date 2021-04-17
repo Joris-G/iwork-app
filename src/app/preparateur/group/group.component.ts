@@ -27,19 +27,19 @@ export class GroupComponent implements OnInit {
   editGroupAction() {
     // Si je suis en mode editer
     if (this.editGroupName) {
-      console.log("J'étais en mode édition");
+      //console.log("J'étais en mode édition");
       // Si la valeur a changer
       if (this.group.NOM != this.inputGroupName.nativeElement.value) {
-        console.log("Le nom a changé");
+        //console.log("Le nom a changé");
         this.group.NOM = this.inputGroupName.nativeElement.value;
         this.processService.modifyGroupName(this.group.ID_GROUP, this.inputGroupName.nativeElement.value).subscribe((res: any) => {
 
         });
       } else {
-        console.log("Le nom n'a pas changé");
+        //console.log("Le nom n'a pas changé");
       }
     }
-    console.log('switch mode');
+    //console.log('switch mode');
     this.editGroupName = !this.editGroupName;
   }
   toogleSelectGroup() {

@@ -6,6 +6,9 @@
     display: flex;
     justify-content: space-between;
 }
+.title {
+    display: flex;
+}
 img {
     width: 0.5em;
 }
