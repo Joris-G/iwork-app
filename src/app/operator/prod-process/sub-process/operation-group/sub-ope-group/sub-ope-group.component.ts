@@ -23,14 +23,9 @@ export class SubOpeGroupComponent implements OnInit, OnChanges {
       (this.subOperation.prodSubOperation.DATE_FIN) ? this.subOpeProdStatus = '1' : this.subOpeProdStatus = '4';
       this.isTraca = this.isAnyTraca();
       if (this.isTraca) {
-        this.getTracaStatus();
+        this.tracaStatus = this.getTracaStatus();
+        console.log(this.tracaStatus);
       }
-    }
-    //console.log("subOpe groupe");
-    for (const key in changes) {
-      //console.log(key, "à changé");
-      //console.log(changes[key]);
-
     }
   }
 
@@ -48,22 +43,22 @@ export class SubOpeGroupComponent implements OnInit, OnChanges {
     }
   }
 
-  getTracaStatus() {
+  getTracaStatus(): string {
     for (const step of this.subOperation.STEPS) {
       console.log(step.TRACA);
       if (step.TRACA) {
-        console.log(step.TRACA.prodTraca.DATE_TRACA);
-        if (step.TRACA.prodTraca.DATE_TRACA) {
+        console.log(step.TRACA.prodTraca);
+        if (step.TRACA.prodTraca) {
           let score: number = 0;
           step.TRACA.TRACA_DETAILS.forEach(tracaDetailElement => {
             score = score + Number.parseInt(tracaDetailElement.prodTracaDetail.SANCTION);
           });
           console.log(score);
           if (score < step.TRACA.TRACA_DETAILS.length) {
-            this.tracaStatus = '3';
+            return '3';
           } else {
             if (score == step.TRACA.TRACA_DETAILS.length) {
-              this.tracaStatus = '1';
+              return '1';
             }
           }
         }
