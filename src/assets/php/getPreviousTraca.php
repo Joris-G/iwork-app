@@ -8,8 +8,8 @@ $previousTracas = $query->fetchAll();
 
 foreach ($previousTracas as $key => $previousTraca) {
     //
-    $sql = "SELECT * FROM t_prod_process WHERE ID_PROD_PROCESS = (SELECT ID_PROD_PROCESS FROM t_prod_suboperations WHERE ID_PROD_SUBOP = :idProdSubOp)";
-    $query = $con->createQuery($sql, ['idProdSubOp' => $previousTraca['ID_PROD_SUBOP']]);
+    $sql = "SELECT * FROM t_prod_process WHERE ID_PROD_PROCESS = (SELECT ID_PROD_PROCESS FROM t_prod_suboperations WHERE ID_PROD_SUBOP = (SELECT ID_PROD_SUBOP FROM t_prod_suboperation_steps WHERE ID_PROD_STEP = :idProdStep))";
+    $query = $con->createQuery($sql, ['idProdStep' => $previousTraca['ID_PROD_STEP']]);
     $prodProcess = $query->fetch();
 
     $previousTracas[$key]['ORDRE_FABRICATION'] = $prodProcess['ORDRE_FABRICATION'];

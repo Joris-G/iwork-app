@@ -62,6 +62,7 @@ export class MaterialComponent implements OnInit, OnChanges {
   recordTraca(tracaControls: any) {
     tracaControls.forEach((traca: any, i: number) => {
       this.tracaService.saveTracaMatiere(traca, this.subOperation).subscribe((res: any) => {
+        console.log(res);
         // this.tracas.TRACA_DETAILS.PROD_TRACA = '';
       })
     });

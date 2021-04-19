@@ -32,10 +32,14 @@ export class TracaComponent implements OnInit, AfterContentInit, OnChanges {
     private componentFactoryResolver: ComponentFactoryResolver, private prodProcessService: ProdProcessServiceService) {
 
   }
+  displayQualityConnexion(eventTarget) {
+    eventTarget.innerHTML = 'Scannez votre badge pour vous indentifier';
+  }
+
   ngOnChanges(changes: SimpleChanges): void {
-    this.prodProcessService.process.subscribe(res => {
-      this.prodProcess = res.prodProcess;
-    })
+    // this.prodProcessService.process.subscribe(res => {
+    //   this.prodProcess = res.prodProcess;
+    // });
   }
 
   ngAfterContentInit(): void {
@@ -45,6 +49,7 @@ export class TracaComponent implements OnInit, AfterContentInit, OnChanges {
   }
 
   ngOnInit(): void {
+    this.enable = !this.tracaList.prodTraca;
     this.role = this.tracaList.ROLE;
     // if (!this.tracaList.prodTraca) {
     //   this.enable = true;
@@ -53,6 +58,12 @@ export class TracaComponent implements OnInit, AfterContentInit, OnChanges {
     // this.alertService.observable.subscribe(event => {
     //   this.loadNewAlertComponent(event);
     // });
+  }
+  tracaDone(event) {
+    if (event) {
+      this.enable = !this.enable;
+      this.tracaList.prodTraca = true;
+    }
   }
 
   // displayAnAlert() {

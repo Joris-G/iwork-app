@@ -17,10 +17,11 @@ export class SubOpeGroupComponent implements OnInit, OnChanges {
   @Input() active: boolean;
   constructor(private prodProcessServiceService: ProdProcessServiceService) { }
   ngOnChanges(changes: SimpleChanges): void {
-    console.log("change data subOpeGroup", changes, this.subOpeProdStatus);
+    console.log("change data subOpeGroup", changes, this.subOpeProdStatus, this.subOperation);
     if (changes.prodProcessSubOpe) {
+      //PROD STATUS
       (this.subOperation.prodSubOperation.DATE_FIN) ? this.subOpeProdStatus = '1' : this.subOpeProdStatus = '4';
-      this.isAnyTraca();
+      this.isTraca = this.isAnyTraca();
       if (this.isTraca) {
         this.getTracaStatus();
       }
@@ -37,31 +38,34 @@ export class SubOpeGroupComponent implements OnInit, OnChanges {
 
   }
 
-  isAnyTraca() {
-
+  isAnyTraca(): boolean {
     for (const step of this.subOperation.STEPS) {
       if (step.TRACA) {
-        this.isTraca = true
+        return true;
       } else {
-        this.isTraca = false;
+        return false;
       }
     }
   }
 
   getTracaStatus() {
     for (const step of this.subOperation.STEPS) {
+      console.log(step.TRACA);
       if (step.TRACA) {
-        if (step.TRACA.PROD_TRACA_DETAILS) {
-          if (step.TRACA.PROD_TRACA_DETAILS.SANCTION == '1') {
-            this.tracaStatus = '2';
-            return;
-          } else {
+        console.log(step.TRACA.prodTraca.DATE_TRACA);
+        if (step.TRACA.prodTraca.DATE_TRACA) {
+          let score: number = 0;
+          step.TRACA.TRACA_DETAILS.forEach(tracaDetailElement => {
+            score = score + Number.parseInt(tracaDetailElement.prodTracaDetail.SANCTION);
+          });
+          console.log(score);
+          if (score < step.TRACA.TRACA_DETAILS.length) {
             this.tracaStatus = '3';
-            return;
+          } else {
+            if (score == step.TRACA.TRACA_DETAILS.length) {
+              this.tracaStatus = '1';
+            }
           }
-        } else {
-          this.tracaStatus = '4';
-          return
         }
       }
     }

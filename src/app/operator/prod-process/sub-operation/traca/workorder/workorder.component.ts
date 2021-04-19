@@ -41,6 +41,7 @@ export class WorkorderComponent implements OnInit {
   recordTraca(tracaControls: any) {
     tracaControls.forEach((traca: any, i: number) => {
       this.tracaService.saveTracaOf(traca, this.subOperation).subscribe((res: any) => {
+        console.log(res);
         //   // this.tracas.TRACA_DETAILS.PROD_TRACA = '';
       })
     });

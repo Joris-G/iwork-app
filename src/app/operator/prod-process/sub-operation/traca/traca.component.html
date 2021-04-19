@@ -6,15 +6,15 @@
         </div>
         <div class="role" *ngIf="role==2">Qualité</div>
     </div>
-    <button mat-raised-button (click)="displayAnAlert()" *ngIf="tracaList.prodTraca">EDIT TRACA <span
-            class="material-icons">
+    <button mat-raised-button (click)="displayQualityConnexion($event.target)" *ngIf="tracaList.prodTraca">EDIT TRACA
+        <span class="material-icons">
             lock_open
         </span>
     </button>
     <div class="traca-type-container" [ngSwitch]="tracaList.TYPE_TRACA">
 
         <app-autocontrole *ngSwitchCase="1" [step]="step" [currentStep]="currentStep" [tracas]="tracaList.TRACA_DETAILS"
-            [enableTraca]="">
+            [enableTraca]="enable" (emitTraca)="tracaDone($event)">
         </app-autocontrole>
         <app-material *ngSwitchCase="2" [subOperation]="subOperation" [tracas]="tracaList.TRACA_DETAILS"
             [matInput]="tracaInput" [enableTraca]="enable"></app-material>

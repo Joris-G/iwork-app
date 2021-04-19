@@ -1,8 +1,11 @@
+import { HttpClient } from '@angular/common/http';
 import { AfterViewInit, Component, ElementRef, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
 import { MatTabGroup } from '@angular/material/tabs';
 import { TracaService } from '@app/service/traca.service';
 import { SubOperation } from '@app/_interfaces/process';
 import { ProdSubOperation } from '@app/_interfaces/prod-process';
+import { map } from 'rxjs/operators';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-sub-operation',
@@ -15,14 +18,15 @@ export class SubOperationComponent implements OnInit, AfterViewInit, OnChanges {
   focusTool: any;
   prodTracaStep: any;
   currentStep: any;
-
   @Input() currentSubOperation: any;
   @Input() process: any;
   @Input() currentOperation: any;
 
   @Output() nextStepEmitter: EventEmitter<any> = new EventEmitter<any>();
   @Output() updateProcess: any = new EventEmitter<any>();
-  constructor(private tracaService: TracaService) { }
+  secondaryUser: any;
+
+  constructor(private tracaService: TracaService, private http: HttpClient) { }
 
   ngOnChanges(changes: SimpleChanges): void {
     console.log("sub op Change", changes);
@@ -132,6 +136,7 @@ export class SubOperationComponent implements OnInit, AfterViewInit, OnChanges {
 
 
   inputAction(eventTarget: HTMLInputElement) {
+
     //console.log(eventTarget);
     const firstSpace = eventTarget.value.search(' ');
     const identifier = eventTarget.value.slice(0, firstSpace);
@@ -141,6 +146,7 @@ export class SubOperationComponent implements OnInit, AfterViewInit, OnChanges {
       refSap: inputDataScan[0],
       id: inputDataScan[1]
     }
+    console.log(inputDataScan[0]);
     if (identifier) {
       switch (identifier) {
         case 'MAT':
@@ -153,10 +159,27 @@ export class SubOperationComponent implements OnInit, AfterViewInit, OnChanges {
           break;
       }
     } else {
-      if (inputDataScan[0] == "1") {
-        this.confEvent();
+      console.log(inputDataScan[0]);
+      switch (inputDataScan[0].length) {
+        case 1:
+          this.confEvent();
+          break;
+        case 5:
+          this.connectSecondaryUser(inputDataScan[0]);
+          break;
       }
     }
     eventTarget.value = "";
+  }
+  connectSecondaryUser(userMatricule) {
+
+    return this.http.post<any>(`${environment.apiUrl}/authenticate.php`, { username: userMatricule, password: 'Socata01' })
+      .pipe(map(user => {
+        // store user details and jwt token in local storage to keep user logged in between page refreshes
+        sessionStorage.setItem('secondaryUser', JSON.stringify(user));
+        //console.log('user stored');
+        this.secondaryUser.next(user);
+        return user;
+      }));
   }
 }

@@ -7,9 +7,6 @@ import { environment } from '../../environments/environment';
 })
 export class TracaService {
 
-
-
-
   startPointOperation: Date;
   endPointOpeartion: Date;
 

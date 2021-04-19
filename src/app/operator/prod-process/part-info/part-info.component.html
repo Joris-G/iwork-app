@@ -6,7 +6,7 @@
         </button>
     </div>
     <div class="info">
-        <div class="article "><span>Article SAP</span><span>{{process.ARTICLE.ARTICLE_SAP}}</span></div>
+        <div class="article"><span>Article SAP</span><span>{{process.ARTICLE.ARTICLE_SAP}}</span></div>
 
         <div class="des"><span>Désignation</span><span>{{process.ARTICLE.DESIGNATION}}</span></div>
 
@@ -16,7 +16,7 @@
                 d'OF</span><span>{{process.process.prodProcess.ORDRE_FABRICATION}}</span></div>
 
         <div class="name">
-            <span *ngIf="process.PRENOM_PIECE">Nom de la
+            <span *ngIf="process.process.prodProcess.PRENOM_PIECE">Nom de la
                 pièce</span><span>{{process.process.prodProcess.PRENOM_PIECE}}</span>
         </div>
 
