@@ -63,15 +63,31 @@ export class TracaService {
     //console.log(subOperation);
     return this.http.get(`${this.baseUrl}/confSubOpe.php?idProdSubOpe=${subOperation.prodSubOperation.ID_PROD_SUBOP}`);
   }
-
-  saveTracaControl(traca: any, step: any) {
+  /**
+   * 
+   * @param tracas 
+   * @param step On doit mettre une step
+   * @returns 
+   */
+  saveTracaControl(tracas: any[], step: any) {
     //console.log(step, traca);
-    return this.http.get(`${this.baseUrl}/recordTraca.php?tracaType=controle&idProdStep=${step.prodStep.ID_PROD_STEP}&idTraca=${traca.idTraca}&idTracaControle=${traca.idTracaControl}&idEcme=${traca.ECME}&sanction=${traca.sanction}&dateExection=${traca.dateExecution}&comment=${traca.comment}`);
+
+    return new Promise<void>((resolve, reject) => {
+      let savedTracas = 0;
+      tracas.forEach(traca => {
+        this.http.get(`${this.baseUrl}/recordTraca.php?tracaType=controle&idProdStep=${step.prodStep.ID_PROD_STEP}&idTraca=${traca.ID_TRACA}&idTracaControle=${traca.ID_TRACA_CONTROLE}&idEcme=${traca.ID_ECME}&sanction=${traca.prodTracaDetail.SANCTION}&dateExection=${traca.dateExecution}&comment=${traca.prodTracaDetail.COMMENTAIRE}`).subscribe(res => {
+          savedTracas = savedTracas + 1;
+          if (tracas.length == savedTracas) {
+            resolve();
+          }
+        })
+      });
+    });
   }
 
 
   saveTracaMatiere(traca: any, subOperation: any) {
-    return this.http.get(`${this.baseUrl}/recordTraca.php?tracaType=matiere&idProdSubOp=${subOperation.PROD.ID_PROD_SUBOP}&idTraca=${traca.idTraca}&idTracaMatiere=${traca.idTracaMatiere}&idMat=${traca.idMatiere}&sanction=${traca.sanction}&dateExecution=${traca.dateExecution}&comment=${traca.comment}`);
+    return this.http.get(`${this.baseUrl}/recordTraca.php?tracaType=matiere&idProdSubOp=${subOperation.PROD.ID_PROD_SUBOP}&idTraca=${traca.idTraca}&idTracaMatiere=${traca.idTracaMatiere}&idMat=${traca.idMatiere}&sanction=${traca.prodTracaDetail.sanction}&dateExecution=${traca.dateExecution}&comment=${traca.comment}`);
   }
 
 
