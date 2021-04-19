@@ -35,7 +35,8 @@ export class ScanInputComponent implements OnInit {
           refSap: inputDataScan[0],
           of: inputDataScan[1]
         }
-        this.scanInput.emit(this.prodProcessService.getAllTraca(techData.refSap, techData.of));
+        // this.scanInput.emit(this.prodProcessService.getAllTraca(techData.refSap, techData.of));
+        this.scanInput.emit(techData);
       } else {
         this.error = {
           state: true,
@@ -49,7 +50,9 @@ export class ScanInputComponent implements OnInit {
         msg: "Ce n'est pas un OF valide"
       };
       console.error("C'est n'est pas un OF");
+
     }
+    this.inputOf.nativeElement.value = "";
     // this.scanInput.emit(inputText.value);
   }
 

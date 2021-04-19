@@ -8,10 +8,9 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 })
 export class FlowComponent implements OnInit {
 
-  @Input() prodProcess: any;
+  @Input() process: any;
+  @Output() currentOperation: EventEmitter<any> = new EventEmitter<any>();
 
-  @Output() currentOperation: EventEmitter<any> =new EventEmitter<any>() ;
-  currentOpe: any;
   constructor() { }
 
   ngOnInit(): void {
@@ -19,7 +18,6 @@ export class FlowComponent implements OnInit {
 
   clickOpActions(operation: any, event: any) {
     this.emitClickedOperation(operation);
-    this.currentOpe = operation;
     this.toggleOperationState(event.target);
   }
 
@@ -27,7 +25,7 @@ export class FlowComponent implements OnInit {
     this.currentOperation.emit(operation);
   }
 
-  toggleOperationState( eventTarget: HTMLElement) {
+  toggleOperationState(eventTarget: HTMLElement) {
     const isAnyActiveOperation = document.getElementsByClassName('active-op');
     if (isAnyActiveOperation) {
       for (let index = 0; index < isAnyActiveOperation.length; index++) {

@@ -17,14 +17,24 @@ export class SubOpeGroupComponent implements OnInit, OnChanges {
   @Input() active: boolean;
   constructor(private prodProcessServiceService: ProdProcessServiceService) { }
   ngOnChanges(changes: SimpleChanges): void {
+    console.log("change data subOpeGroup", changes, this.subOpeProdStatus);
+    if (changes.prodProcessSubOpe) {
+      (this.subOperation.prodSubOperation.DATE_FIN) ? this.subOpeProdStatus = '1' : this.subOpeProdStatus = '4';
+      this.isAnyTraca();
+      if (this.isTraca) {
+        this.getTracaStatus();
+      }
+    }
+    //console.log("subOpe groupe");
+    for (const key in changes) {
+      //console.log(key, "à changé");
+      //console.log(changes[key]);
+
+    }
   }
 
   ngOnInit(): void {
-    (this.subOperation.prodSubOperation.DATE_FIN) ? this.subOpeProdStatus = '1' : this.subOpeProdStatus = '4';
-    this.isAnyTraca();
-    if (this.isTraca) {
-      this.getTracaStatus();
-    }
+
   }
 
   isAnyTraca() {

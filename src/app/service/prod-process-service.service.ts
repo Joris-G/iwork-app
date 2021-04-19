@@ -13,8 +13,7 @@ export class ProdProcessServiceService {
   constructor(private http: HttpClient) { }
 
   getAllTraca(articleSap: number, workorder: number): Observable<any> {
-    this.process = this.http.get(`${this.baseUrl}/getProcess.php?articleSap=${articleSap}&OF=${workorder}`);
-    return this.process;
+    return this.http.get(`${this.baseUrl}/getProcess.php?articleSap=${articleSap}&OF=${workorder}`);
   }
   getAllProcesses(articleSap: string) {
     return this.http.get(`${this.baseUrl}/getAllProcesses.php?articleSap=${articleSap}`);

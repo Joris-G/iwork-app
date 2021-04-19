@@ -15,13 +15,20 @@ export class OperationGroupComponent implements OnInit, OnDestroy, OnChanges {
 
   constructor(private tracaService: TracaService) { }
   ngOnChanges(changes: SimpleChanges): void {
+    console.log("opegroupe CHANGE", changes.currentSubOpe);
+    (this.prodOperation) ? this.prodSubOperations = this.prodOperation.subOperations : this.prodSubOperations = false;
+    for (const key in changes) {
+      //console.log(key, "à changé");
+      //console.log(changes[key]);
+
+    }
   }
   ngOnDestroy(): void {
     this.tracaService.stopOperationTimer(this.prodOperation);
   }
 
   ngOnInit(): void {
-    (this.prodOperation) ? this.prodSubOperations = this.prodOperation.subOperations : this.prodSubOperations = false;
+
   }
 
   isActive(subOpeToTest: any): boolean {

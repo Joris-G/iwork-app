@@ -1,4 +1,6 @@
 import { AfterViewInit, Component, Input, OnInit } from '@angular/core';
+import { ProcessService } from '@app/service/process.service';
+import { ProdProcessServiceService } from '@app/service/prod-process-service.service';
 import { TracaService } from '@app/service/traca.service';
 import { GroupSubOpe, Operation, Process, SubOperation } from '@app/_interfaces/process';
 import { Observable } from 'rxjs';
@@ -11,11 +13,7 @@ import { Observable } from 'rxjs';
 export class OperatorComponent implements OnInit, AfterViewInit {
 
   @Input() scanInput: any;
-  process: {
-    part: any,
-    process: Process,
-    prodProcess: any
-  };
+  process: any;
   lastOpe: {
     opSAP: Operation,
     groupOpe: GroupSubOpe,
@@ -23,7 +21,7 @@ export class OperatorComponent implements OnInit, AfterViewInit {
   };
 
 
-  constructor(private tracaService: TracaService) { }
+  constructor(private tracaService: TracaService, private prodProcessService: ProdProcessServiceService) { }
   ngAfterViewInit(): void {
     // document.getElementById('operator').onclick = () => {
     //   this.process = null;
@@ -33,24 +31,32 @@ export class OperatorComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
   }
+  upDateProcess(refSap?: any, workorder?: any) {
+    if (this.process) {
+      return this.prodProcessService.getAllTraca(7172102, 53000000);
 
-  getScanedInput(input: Observable<any>) {
-    input.subscribe(resInput => {
-      this.process = resInput;
-      if (resInput.process.prodProcess.DATE_DEBUT == null) {
+    } else {
+      return this.prodProcessService.getAllTraca(refSap, workorder);
+    }
+  }
+  getScanedInput(input: any) {
+    this.upDateProcess(input.refSap, input.of).subscribe(res => {
+      this.process = res;
+      console.log(this.process);
+      if (this.process.process.prodProcess.DATE_DEBUT == null) {
         //Débuter le process et la première opération
-        console.log("c'est ici qu'on a lancé l'OP");
-        this.tracaService.launchOperation(resInput.process.LISTE_OPERATIONS[0], resInput.process.prodProcess).subscribe(res => {
-          resInput.process.LISTE_OPERATIONS[0].prodOperation = res;
+        //console.log("c'est ici qu'on a lancé l'OP");
+        this.tracaService.launchOperation(this.process.process.LISTE_OPERATIONS[0], this.process.process.prodProcess).subscribe(res => {
+          this.process.process.LISTE_OPERATIONS[0].prodOperation = res;
           this.lastOpe = {
-            opSAP: resInput.process.LISTE_OPERATIONS[0],
-            groupOpe: resInput.process.LISTE_OPERATIONS[0]['OPERATION_GROUP'][0],
-            opeDet: resInput.process.LISTE_OPERATIONS[0]['OPERATION_GROUP'][0]['OPERATIONS_DETAILLEES'][0]
+            opSAP: this.process.process.LISTE_OPERATIONS[0],
+            groupOpe: this.process.process.LISTE_OPERATIONS[0]['OPERATION_GROUP'][0],
+            opeDet: this.process.process.LISTE_OPERATIONS[0]['OPERATION_GROUP'][0]['OPERATIONS_DETAILLEES'][0]
           }
 
         });
       } else {
-        for (const operation of resInput.process.LISTE_OPERATIONS) {
+        for (const operation of this.process.process.LISTE_OPERATIONS) {
           if (this.lastOpe) break;
           for (const groupOpe of operation.OPERATION_GROUP) {
             if (this.lastOpe) break;

@@ -7,7 +7,7 @@ import { MatTableDataSource } from '@angular/material/table';
   styleUrls: ['./part-info.component.css']
 })
 export class PartInfoComponent implements OnInit {
-  @Input() prodProcess: any;
+  @Input() process: any;
 
   constructor() { }
 

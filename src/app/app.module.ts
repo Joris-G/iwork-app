@@ -5,7 +5,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { OperatorComponent } from './operator/operator.component';
-import { ScanInputComponent } from './operator/scan-input/scan-input.component';
+import { ScanInputComponent } from './tools/scan-input/scan-input.component';
 import { ProdProcessComponent } from './operator/prod-process/prod-process.component';
 import { PartInfoComponent } from './operator/prod-process/part-info/part-info.component';
 import { FlowComponent } from './operator/prod-process/flow/flow.component';

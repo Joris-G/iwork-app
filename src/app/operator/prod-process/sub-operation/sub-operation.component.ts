@@ -21,12 +21,17 @@ export class SubOperationComponent implements OnInit, AfterViewInit, OnChanges {
   @Input() currentOperation: any;
 
   @Output() nextStepEmitter: EventEmitter<any> = new EventEmitter<any>();
+  @Output() updateProcess: any = new EventEmitter<any>();
   constructor(private tracaService: TracaService) { }
+
   ngOnChanges(changes: SimpleChanges): void {
-    //console.log("OnChange");
-    //console.log(changes.currentSubOperation.currentValue);
-    this.defineCurrentStep(changes.currentSubOperation.currentValue.STEPS[0]);
-    this.launchSubOperation()
+    console.log("sub op Change", changes);
+    if (changes.currentSubOperation) {
+      console.log("current sub op Change", changes.currentSubOperation.currentValue);
+      //console.log(changes.currentSubOperation.currentValue);
+      this.defineCurrentStep(changes.currentSubOperation.currentValue.STEPS[0]);
+      this.launchSubOperation();
+    }
   }
 
   @ViewChild('MatTabGroup') tabGroup: MatTabGroup;
@@ -53,8 +58,8 @@ export class SubOperationComponent implements OnInit, AfterViewInit, OnChanges {
   launchSubOperation() {
     //Si pas déjà débutée on lance la subOPE
     if (!this.currentSubOperation.prodSubOperation) {
-      console.log("c'est ici qu'on a lancé  la subOPE!");
-      console.log(this.currentSubOperation, this.currentOperation);
+      //console.log("c'est ici qu'on a lancé  la subOPE!");
+      //console.log(this.currentSubOperation, this.currentOperation);
       this.tracaService.launchSubOperation(this.currentSubOperation, this.currentOperation).subscribe(res => {
         this.currentSubOperation.prodSubOperation = res;
         const firstStep = this.currentSubOperation.STEPS[0];
@@ -99,12 +104,12 @@ export class SubOperationComponent implements OnInit, AfterViewInit, OnChanges {
 
   confEvent() {
     this.tracaService.confStep(this.currentStep).subscribe(res => {
-      const nativeStep = this.currentSubOperation.STEPS.find(nativeStep => nativeStep == this.currentStep);
-      nativeStep.prodStep = res;
+      //console.log("subop emit", this.currentSubOperation);
       //Test si dernière step de la suboperation
       const lastStep = this.currentSubOperation.STEPS.slice(-1);
       if (this.currentStep.ID_STEP == lastStep[0].ID_STEP) {
         this.tracaService.confSubOperation(this.currentSubOperation).subscribe(res => {
+          this.currentSubOperation.prodSubOperation = res
           //Test si dernière subOpe dans le groupe
         });
         //Définir le nouveau groupe
@@ -116,6 +121,10 @@ export class SubOperationComponent implements OnInit, AfterViewInit, OnChanges {
         this.tabGroup.selectedIndex = (indexCurrentStep + 1);
         // this.nextStepEmitter.emit(this.currentSubOperation.STEPS[indexCurrentStep + 1]);
       }
+      const nativeStep = this.currentSubOperation.STEPS.find(nativeStep => nativeStep == this.currentStep);
+      nativeStep.prodStep = res;
+      console.log("emit updateprocess");
+      this.updateProcess.emit(this.currentSubOperation);
     });
   }
 
@@ -123,11 +132,11 @@ export class SubOperationComponent implements OnInit, AfterViewInit, OnChanges {
 
 
   inputAction(eventTarget: HTMLInputElement) {
-    console.log(eventTarget);
+    //console.log(eventTarget);
     const firstSpace = eventTarget.value.search(' ');
     const identifier = eventTarget.value.slice(0, firstSpace);
     const inputDataScan = eventTarget.value.slice(firstSpace + 1).split(',');
-    console.log(firstSpace, identifier, inputDataScan);
+    //console.log(firstSpace, identifier, inputDataScan);
     const techData = {
       refSap: inputDataScan[0],
       id: inputDataScan[1]

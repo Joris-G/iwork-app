@@ -8,24 +8,26 @@ import { Observable } from 'rxjs';
   styleUrls: ['./sub-process.component.css']
 })
 export class SubProcessComponent implements OnInit, OnChanges {
-  @Output() currentSubOperation: any = new EventEmitter<any>();
+  @Output() currentSubOperationEmitter: any = new EventEmitter<any>();
 
-  @Input() subOpe: any;
-  @Input() operation: any;
+  @Input() currentSubOperation: any;
+  @Input() currentOperation: any;
   @Input() prodProcess: any;
-
+  @Output() prodProcessUpdate: any = new EventEmitter<any>();
   anyTraca: boolean;
   constructor(private tracaService: TracaService) { }
 
   ngOnChanges(changes: SimpleChanges): void {
-    // if (this.prodOperation) {
-    //   // this.tracaService.continueOperation(this.prodOperation,).subscribe((response: any) => {
-    //   //   });
-    // } else {
-    //   //console.log('launch');
-    //   this.tracaService.launchOperation(this.operation, this.prodProcess.prodProcess).subscribe((response: any) => {
-    //   });
-    // }
+    console.log("subprocess change", changes);
+    if (changes.prodProcess) {
+      console.log("prodProcess Changes", changes.prodProcess.currentValue);
+      this.prodProcessUpdate.emit(changes.prodProcess.currentValue);
+    }
+    for (const key in changes) {
+      //console.log(key, "à changé");
+      //console.log(changes[key]);
+
+    }
 
   }
 
@@ -33,7 +35,7 @@ export class SubProcessComponent implements OnInit, OnChanges {
   }
 
   showOp(item: any) {
-    this.currentSubOperation.emit(item);
+    this.currentSubOperationEmitter.emit(item);
   }
 
 
